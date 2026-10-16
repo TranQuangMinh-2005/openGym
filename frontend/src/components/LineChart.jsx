@@ -1,8 +1,8 @@
-import { useLayoutEffect, useRef, useState } from 'react'
+import { useId, useLayoutEffect, useRef, useState } from 'react'
 import { fmtNum, fmtDate, MONTHS, isoOf } from '../lib/format.js'
 import { t } from '../lib/i18n.js'
 
-const W = 340   // viewBox width; the svg stretches to its container, height comes from `h`
+const DEFAULT_WIDTH = 340
 
 // points: [{ t: ms, y: num, d?: iso, m?: 0..1, note?: str }] sorted by t.
 //   m    marks the point — a second reading carried by the same dot (bigger and more solid =
@@ -15,11 +15,26 @@ const W = 340   // viewBox width; the svg stretches to its container, height com
 //   series draws several lines instead of one: [{ points, color }] (issue #145, one per set
 //   number). `points` then only anchors the hover — one per date, its `note` the tooltip — and
 //   the y axis spans every series.
-export default function LineChart({ points, h = 150, unit = '', color = 'var(--acc)', axes = true, goal = null, invert = false, series = null }) {
+export default function LineChart({ points, h = 150, unit = '', color = 'var(--chart-accent, var(--acc))', axes = true, goal = null, invert = false, series = null }) {
   const svgRef = useRef(null)
   const wrapRef = useRef(null)
   const tipRef = useRef(null)
+  const chartId = useId()
+  const [W, setWidth] = useState(DEFAULT_WIDTH)
   const [hover, setHover] = useState(null)   // { x, y, iso, v }
+
+  // Match the drawing coordinates to the available width so desktop labels retain their
+  // readable size instead of stretching the entire phone-sized SVG, text included.
+  useLayoutEffect(() => {
+    const node = wrapRef.current
+    if (!node || typeof ResizeObserver === 'undefined') return
+    const observer = new ResizeObserver(entries => {
+      const width = Math.round(entries[0]?.contentRect.width || 0)
+      if (width > 0) { setWidth(Math.max(240, width)); setHover(null) }
+    })
+    observer.observe(node)
+    return () => observer.disconnect()
+  }, [!!points?.length])
 
   // A new dataset has different coordinates and meaning, so never carry the previous
   // point selection into it. Layout timing removes the marker before the new chart paints.
@@ -103,7 +118,7 @@ export default function LineChart({ points, h = 150, unit = '', color = 'var(--a
 
   const poly = pts.map(p => X(p.t).toFixed(1) + ',' + Y(p.y).toFixed(1)).join(' ')
   const last = pts[pts.length - 1]
-  const gid = 'g' + Math.round(t0 % 1e7) + '_' + H
+  const gid = 'chart-' + chartId.replace(/:/g, '')
   const hoverSource = single ? [points[0]] : points
   const hoverDates = hoverSource.map(p => p.d || isoOf(new Date(p.t)))
   const showYear = new Set(hoverDates.map(iso => new Date(iso + 'T12:00:00').getFullYear())).size > 1
@@ -120,9 +135,21 @@ export default function LineChart({ points, h = 150, unit = '', color = 'var(--a
     hoverPts.forEach(p => { if (Math.abs(p.x - vx) < Math.abs(best.x - vx)) best = p })
     setHover(best)
   }
+  const onKeyDown = e => {
+    if (!['ArrowLeft', 'ArrowRight', 'Home', 'End', 'Escape'].includes(e.key)) return
+    e.preventDefault()
+    e.stopPropagation()
+    if (e.key === 'Escape') { setHover(null); return }
+    const current = hover ? hoverPts.findIndex(p => p.t === hover.t) : -1
+    const next = e.key === 'Home' ? 0 : e.key === 'End' ? hoverPts.length - 1 : Math.max(0, Math.min(hoverPts.length - 1, current + (e.key === 'ArrowLeft' ? -1 : 1)))
+    setHover(hoverPts[next])
+  }
 
   return (
-    <div className="chart-i" ref={wrapRef}
+    <div className="chart-i" ref={wrapRef} tabIndex={0} role="group"
+      aria-label={t('Progress chart. Use arrow keys to explore values.')}
+      aria-describedby={hover ? chartId + '-value' : undefined}
+      onKeyDown={onKeyDown} onFocus={() => setHover(hoverPts[0])} onBlur={() => setHover(null)}
       onMouseMove={onMove} onMouseDown={onMove}
       onMouseLeave={() => setHover(null)}
       onTouchStart={onMove} onTouchMove={onMove}>
@@ -163,7 +190,7 @@ export default function LineChart({ points, h = 150, unit = '', color = 'var(--a
             </>}
         </g>}
       </svg>
-      {hover && <div className="ctip" ref={tipRef}>
+      {hover && <div className="ctip" ref={tipRef} id={chartId + '-value'} aria-live="polite">
         {multi
           ? <>{fmtDate(hover.iso, true, showYear)}{hover.note ? ' · ' + hover.note : ''}</>
           : <>{fmtDate(hover.iso, true, showYear)} · {fmtNum(hover.v)}{unit ? ' ' + unit : ''}{hover.note ? ' · ' + hover.note : ''}</>}

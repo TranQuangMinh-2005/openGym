@@ -22,11 +22,11 @@ const mint = uid => {
   return payload + '.' + crypto.createHmac('sha256', SECRET).update(payload).digest('base64url');
 };
 
-async function startServer(t, env = {}) {
+async function startServer(t, env = {}, users = [{ id: UID, name: 'C', created: new Date().toISOString() }]) {
   const dataDir = fs.mkdtempSync(path.join(os.tmpdir(), 'gym-config-'));
   fs.writeFileSync(path.join(dataDir, 'secret'), SECRET, { mode: 0o600 });
   fs.writeFileSync(path.join(dataDir, 'db.json'), JSON.stringify({
-    users: [{ id: UID, name: 'C', created: new Date().toISOString() }], creds: [], subs: [], invites: []
+    users, creds: [], subs: [], invites: []
   }));
   // The fixture provider is "connected" by definition (coach/config.js isConnected), which is all
   // publicConfig() needs to produce a block.
@@ -97,4 +97,42 @@ test('GET /api/config: DEFAULT_LANG is public when set, absent when unset or mal
 
   const unset = await startServer(t, { DEFAULT_LANG: '' });
   assert.equal('default_lang' in await fetch(`${unset.api}/api/config`).then(r => r.json()), false);
+});
+
+test('single-user mode creates a durable admin profile and saves data without credentials', async t => {
+  const h = await startServer(t, { SINGLE_USER: '1' }, []);
+  const me = await fetch(`${h.api}/api/me`).then(r => r.json());
+  assert.equal(me.user.admin, true);
+  const stored = JSON.parse(fs.readFileSync(path.join(h.dataDir, 'db.json'), 'utf8'));
+  assert.equal(stored.users.length, 1);
+  assert.equal(stored.users[0].id, me.user.id);
+  const config = await fetch(`${h.api}/api/config`).then(r => r.json());
+  assert.equal(config.single_user, true);
+  assert.equal(config.coach.enabled, true);
+  const saved = await fetch(`${h.api}/api/data`, {
+    method: 'PUT', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ state: { routines: [], workouts: [], unit: 'kg' }, baseRev: 0 })
+  });
+  assert.equal(saved.status, 200);
+  const read = await fetch(`${h.api}/api/data`).then(r => r.json());
+  assert.equal(read.state.unit, 'kg');
+  assert.ok(fs.existsSync(path.join(h.dataDir, `state-${me.user.id}.json`)));
+});
+
+test('single-user mode reuses an existing profile and refuses cross-origin access', async t => {
+  const h = await startServer(t, { SINGLE_USER: '1' });
+  const me = await fetch(`${h.api}/api/me`).then(r => r.json());
+  assert.equal(me.user.id, UID);
+  assert.equal(JSON.parse(fs.readFileSync(path.join(h.dataDir, 'db.json'), 'utf8')).users.length, 1);
+  for (const route of ['me', 'data', 'config']) {
+    const res = await fetch(`${h.api}/api/${route}`, { headers: { Origin: 'https://other.example' } });
+    assert.equal(res.status, 403);
+    assert.equal(res.headers.get('access-control-allow-origin'), null);
+  }
+});
+
+test('normal mode still requires a session', async t => {
+  const h = await startServer(t, { SINGLE_USER: '0' });
+  assert.equal((await fetch(`${h.api}/api/me`)).status, 401);
+  assert.equal((await fetch(`${h.api}/api/data`)).status, 401);
 });

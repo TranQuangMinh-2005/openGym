@@ -36,6 +36,7 @@ import { glyphOf } from '../lib/glyphs.js'
 import LineChart from '../components/LineChart.jsx'
 import { Button, Check, Switch, Section, Row, SelectRow } from '../components/ui.jsx'
 import '../coach.css'
+import GymMascot from '../components/GymMascot.jsx'
 
 export default function CoachChat() {
   const nav = useNavigate()
@@ -48,11 +49,17 @@ export default function CoachChat() {
   const toast = useUI(s => s.toast)
   const openSheet = useUI(s => s.openSheet)
   const { job, pending, cap, loading, lastError, last, refresh, maxMessageLen } = useCoachStatus(true)
-  const [text, setText] = useState('')
+  const draftKey = 'gym_coach_draft_' + (user?.id || 'guest')
+  const [text, setText] = useState(() => { try { return sessionStorage.getItem(draftKey) || '' } catch { return '' } })
+  useEffect(() => { try { if (text) sessionStorage.setItem(draftKey, text); else sessionStorage.removeItem(draftKey) } catch {} }, [text, draftKey])
   const [busy, setBusy] = useState(false)
   const endRef = useRef(null)
   const prevJob = useRef(null)
   const coachMode = coachLocal?.mode
+  useEffect(() => {
+    useUI.getState().setBuddyActivity?.(job ? 'searching' : lastError ? 'error' : pending ? 'success' : 'idle')
+    return () => useUI.getState().setBuddyActivity?.('idle')
+  }, [job?.id, !!lastError, pending?.id])
 
   const ok = coachAvailable(config, user, { demo: DEMO, mobile: MOBILE, coachMode })
   const ready = ok && hasConsent(S) && !!S.coach?.profile
@@ -188,14 +195,15 @@ export default function CoachChat() {
   return <div className="narrow chat">
     <div className="chat-hdr">
       <button className="iconbtn" onClick={() => nav('/plan')} aria-label={t('Back')}><Icon name="chevronLeft" /></button>
-      <div className="chat-av"><Icon name="sparkles" /></div>
+      <div className="chat-av" style={{ background: 'transparent', width: 64, height: 64 }}><GymMascot size={64} state={job ? 'searching' : lastError ? 'error' : pending ? 'success' : 'idle'} /></div>
       <div className="grow">
-        <h1>{t('Coach')}</h1>
+        <h1>GymBuddy</h1>
         <div className={'chat-st' + (job ? ' live' : '')}>{status}</div>
       </div>
       <button className="iconbtn" onClick={menu} aria-label={t('More')}><Icon name="more" /></button>
     </div>
 
+    <div className={'chat-workspace' + (pending && !job ? ' has-proposal' : '')}><section className="chat-conversation">
     <div className="msgs">
       <Bubble role="coach">{t('Hi, I’m your Coach. I build your plan from your answers and adjust it from what you actually log. Nothing changes until you say so.')}</Bubble>
 
@@ -203,11 +211,7 @@ export default function CoachChat() {
 
       {job && <Typing S={S} kind={job.kind} coachLocal={coachLocal} config={config} />}
 
-      {pending && !job && (pending.kind === 'create'
-        ? <PlanCard p={pending} S={S} update={update} toast={toast} nav={nav} refresh={refresh} />
-        : pending.kind === 'debrief'
-          ? <DebriefCard p={pending} S={S} update={update} toast={toast} refresh={refresh} />
-          : <ReviewCard p={pending} S={S} update={update} toast={toast} refresh={refresh} />)}
+
 
       <div ref={endRef} />
     </div>
@@ -220,12 +224,21 @@ export default function CoachChat() {
         {community && <button className="qchip" onClick={showCohort}><Icon name="person" />{t('Compare')}</button>}
       </div>}
       <div className="composer-in">
-        <textarea rows={1} value={text} maxLength={maxMessageLen || 1000} placeholder={placeholder} disabled={!!job}
+        <textarea rows={1} value={text} maxLength={maxMessageLen || 1000} placeholder={placeholder} aria-label={t('Message GymBuddy')} disabled={!!job}
           onChange={e => setText(e.target.value)}
           onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send() } }} />
         <button className="send" onClick={send} disabled={!text.trim() || busy || !!job} aria-label={t('Send')}><Icon name="arrowUp" /></button>
       </div>
       {cap?.limit > 0 && <div className="composer-cap">{t('{0} of {1} Coach runs used today', cap.used, cap.limit)}</div>}
+    </div>
+    </section>
+    {pending && !job && <aside className="chat-proposal" aria-label={t('Coach suggestion')}>
+      {pending && !job && (pending.kind === 'create'
+        ? <PlanCard p={pending} S={S} update={update} toast={toast} nav={nav} refresh={refresh} />
+        : pending.kind === 'debrief'
+          ? <DebriefCard p={pending} S={S} update={update} toast={toast} refresh={refresh} />
+          : <ReviewCard p={pending} S={S} update={update} toast={toast} refresh={refresh} />)}
+    </aside>}
     </div>
   </div>
 }

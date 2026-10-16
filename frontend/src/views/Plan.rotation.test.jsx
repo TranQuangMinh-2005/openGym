@@ -48,6 +48,7 @@ const baseS = over => ({ routines, week: { 1: ['c'] }, dayPlan: {}, workouts: []
 
 let host, root
 beforeEach(() => {
+  window.happyDOM.setWindowSize({ width: 375, height: 812 })
   localStorage.removeItem('gym_plan_view')
   host = document.createElement('div'); document.body.appendChild(host); root = createRoot(host)
   menuSheet.mockClear(); confirmSheet.mockClear(); mocks.nav = vi.fn()

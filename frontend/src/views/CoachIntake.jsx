@@ -23,6 +23,8 @@ import { activeProfile } from '../lib/equipment.js'
 import Icon from '../components/Icon.jsx'
 import { Button, TextArea } from '../components/ui.jsx'
 import '../coach.css'
+import GymMascot from '../components/GymMascot.jsx'
+import '../components/GymBuddyCard.css'
 
 // Each choice's text returns [title, detail] in the current language, through literal t() calls
 // so check-source-strings sees every key, as CATEGORY_TEXT in lib/coach.js does. When the screen
@@ -139,6 +141,10 @@ export default function CoachIntake() {
     </div>
 
     <div className="ob-body">
+      <div className="gym-buddy-intake">
+        <GymMascot size={64} animate={false} />
+        <div><strong>GymBuddy</strong>Mình tìm hiểu mục tiêu của bạn trước nhé.</div>
+      </div>
       {key === 'consent' && <Consent onAgree={agree} onDecline={() => nav('/plan')} />}
 
       {key === 'goal' && <>

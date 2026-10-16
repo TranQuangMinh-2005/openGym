@@ -6,6 +6,7 @@ import { t } from '../lib/i18n.js'
 import Icon from './Icon.jsx'
 import Elapsed from './Elapsed.jsx'
 import { useConnectionTrouble } from './SyncBanner.jsx'
+import { useWorkoutStart } from './layout/useWorkoutStart.js'
 
 // Module scope, not TabBar's render body. Declared inside it, `Tab` was a new function on every
 // render, so React saw a different component type each time and threw the button away and built a
@@ -20,6 +21,7 @@ function Tab({ active, icon, label, onClick, dot }) {
 }
 
 export default function TabBar({ onStart }) {
+  const sharedStart = useWorkoutStart()
   const nav = useNavigate()
   const loc = useLocation()
   const S = useStore(s => s.S)
@@ -34,12 +36,11 @@ export default function TabBar({ onStart }) {
 
   const running = !!S.active && cur !== 'workout' && !S.active.editingWorkoutId && !S.active.backfill && S.active.start > 0
   const startWorkout = () => {
-    if (!S.active) {
-      // A weekday can hold several routines; start the combined session if any of them has
-      // exercises, otherwise fall through to the picker.
-      if (effectiveRoutines(S, todayISO()).some(r => r.ex.length)) { onStart(effectiveRoutineIds(S, todayISO())); return }
+    // Keep the injected action for callers/tests; the workspace uses the same policy.
+    if (onStart && !S.active && effectiveRoutines(S, todayISO()).some(r => r.ex.length)) {
+      onStart(effectiveRoutineIds(S, todayISO())); return
     }
-    nav('/workout')
+    sharedStart()
   }
 
   return (

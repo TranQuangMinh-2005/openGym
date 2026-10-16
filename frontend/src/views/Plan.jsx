@@ -5,7 +5,7 @@ import { useUI } from '../store/useUI.js'
 import { DAYN, DAYS, weekOrder, weekStartOf, uid, exCount, routineCount, todayISO, fmtDate } from '../lib/format.js'
 import { t } from '../lib/i18n.js'
 import {
-  dayAssignSheet, starterPlanSheet, confirmSheet, menuSheet,
+  dayAssignSheet, starterPlanSheet, confirmSheet, menuSheet, startFlow,
   planHasRoutines, exportPlanFile, printWholePlan, importPlanFile,
 } from '../sheets.jsx'
 import Icon from '../components/Icon.jsx'
@@ -19,6 +19,12 @@ import { glyphOf, DEFAULT_GLYPH } from '../lib/glyphs.js'
 import { DEMO } from '../lib/demo.js'
 import { MOBILE } from '../lib/mobile.js'
 import { coachAvailable } from '../lib/coach.js'
+import { EXDB } from '../lib/exercises.js'
+import { exerciseNameFor } from '../lib/i18n.js'
+import BuddyHint from '../components/buddy/BuddyHint.jsx'
+import { useMediaQuery } from '../components/layout/useMediaQuery.js'
+import { modeOf, setsRepsOf } from '../lib/history.js'
+import { fmtRest } from '../lib/duration.js'
 import { queueOf, queueView } from '../lib/queue.js'
 import { deriveSessionName } from '../lib/session-merge.js'
 import { markUndone, undoMarks } from '../lib/sync-merge.js'
@@ -122,6 +128,7 @@ export function undoTakeOut({ id, at, label, snap, mark, marks }) {
 let flashSeq = 0
 
 export default function Plan() {
+  const desktop = useMediaQuery('(min-width:768px)')
   const nav = useNavigate()
   const S = useStore(s => s.S)
   const update = useStore(s => s.update)
@@ -169,10 +176,11 @@ export default function Plan() {
       </div>
     </div>
     <input ref={fileRef} type="file" accept="application/json,.json" onChange={pickFile} hidden />
+    <BuddyHint>{t('Build a sequence that fits your life. Choose a routine below to see its exercises and targets.')}</BuddyHint>
     <Segmented className="plan-views" value={view} onChange={setView}
       options={[{ value: 'schedule', label: t('Schedule') }, { value: 'routines', label: t('Routines') }]} />
     {view === 'routines'
-      ? <Routines S={S} update={update} nav={nav} />
+      ? desktop ? <RoutineWorkspace S={S} update={update} nav={nav} /> : <Routines S={S} update={update} nav={nav} />
       : <Schedule S={S} update={update} nav={nav} mode={mode} />}
   </div>
 }
@@ -377,7 +385,7 @@ function Schedule({ S, update, nav, mode }) {
 
 /* ================================ Routines ================================ */
 
-function Routines({ S, update, nav }) {
+function Routines({ S, update, nav, onSelect, selectedId }) {
   const [edit, setEdit] = useState(false)
   const [flash, setFlash] = useState(null)
   const swipe = workoutControls(S).swipeSets
@@ -437,7 +445,7 @@ function Routines({ S, update, nav }) {
               {...reorder.handle(i)}><Icon name="chevronsUpDown" /></button>}
           </div>)}</div>
         : <div className="list routine-list plan-routines">{routines.map(r => {
-          const row = <div key={r.id} className="item plan-routine" {...tappable(() => nav('/plan/r/' + r.id))}>
+          const row = <div key={r.id} className={'item plan-routine' + (selectedId === r.id ? ' is-selected' : '')} {...tappable(() => onSelect ? onSelect(r.id) : nav('/plan/r/' + r.id))}>
             <span className="lrow-i"><Icon name={glyphOf(r.emoji)} /></span>
             <div className="grow"><div className="tt">{r.name}</div><div className="ss">{sub(r)}</div></div>
             <Icon name="chevronRight" className="chev" /></div>
@@ -455,5 +463,24 @@ function Routines({ S, update, nav }) {
       <div className="empty"><div className="ico"><Icon name="clipboard" /></div>{t('No routines yet.')}<br />{t('Make one, or grab the starter plan to get going.')}</div>
       <Button icon="clipboard" onClick={starterPlanSheet}>{t('Load starter plan')}</Button>
     </>}
+  </>
+}
+
+// The desktop inspector reads ordinary routine configs; all edits stay in RoutineEdit.
+function RoutineWorkspace({ S, update, nav }) {
+  const [selected, setSelected] = useState(null)
+  const r = S.routines.find(r => r.id === selected) || S.routines[0]
+  const all = [...EXDB, ...(S.customEx || [])]
+  return <>
+    {!r ? <Routines S={S} update={update} nav={nav} /> : <div className="program-session-layout">
+      <div className="program-session-list"><Routines S={S} update={update} nav={nav} selectedId={r.id} onSelect={setSelected} /></div>
+      <section className="program-session-card" aria-label={t('Selected routine')}><h2>{r.name}</h2><div className="sub muted">{exCount(r.ex.length)} · {t('Targets for this routine')}</div>
+        <div className="program-session-actions"><Button size="sm" icon="pencil" variant="primary" onClick={() => nav('/plan/r/' + r.id)}>{t('Edit routine')}</Button><Button size="sm" icon="play" onClick={() => startFlow([r.id])}>{t('Start workout')}</Button></div>
+        {r.ex.length ? <table className="routine-summary-table"><thead><tr><th>{t('Exercise')}</th><th>{t('Sets')}</th><th>{t('Reps / time')}</th><th>{t('Rest')}</th></tr></thead><tbody>{r.ex.map((slot, index) => {
+          const ex = all.find(e => e.id === slot.id)
+          return <tr key={index}><td><button onClick={() => nav('/plan/r/' + r.id)}>{ex ? exerciseNameFor(ex) : slot.id}</button>{slot.sg && <small>{t('Superset')}</small>}</td><td>{slot.sets ?? 1}</td><td>{setsRepsOf({ ...slot, sets: 1, mode: modeOf(slot) })}</td><td>{fmtRest(slot.restSec > 0 ? slot.restSec : S.restSec)}</td></tr>
+        })}</tbody></table> : <BuddyHint>{t('This routine is ready for its first exercise. Open the editor to add one.')}</BuddyHint>}
+      </section>
+    </div>}
   </>
 }

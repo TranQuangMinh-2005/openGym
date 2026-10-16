@@ -23,6 +23,7 @@ import { confirmSheet } from '../sheets.jsx'
 const routine = (id, name) => ({ id, name, emoji: null, ex: [{ id: '0025' }] })
 let host, root
 beforeEach(() => {
+  window.happyDOM.setWindowSize({ width: 375, height: 812 })
   globalThis.IS_REACT_ACT_ENVIRONMENT = true
   localStorage.setItem('gym_plan_view', 'routines')
   confirmSheet.mockClear(); nav.mockClear()

@@ -1,0 +1,13 @@
+.overlay-close { display:none; }
+@media (min-width:768px) {
+ #modal-root .sheet { inset:50% auto auto 50%;margin:0;transform:translate(-50%,-50%);width:min(760px,calc(100vw - 64px));max-height:calc(100dvh - 64px);border-radius:20px;padding:28px;background:var(--bg-el);border:1px solid var(--sep);animation:none;box-shadow:0 24px 100px #0005;scrollbar-width:thin; }
+ #modal-root .sheet[data-presentation='drawer'] { inset:0 0 0 auto;transform:none;width:min(600px,calc(100vw - 72px));height:100dvh;max-height:100dvh;border-radius:20px 0 0 20px;padding:28px; }
+ #modal-root .sheet[data-presentation='wide'] { width:min(1040px,calc(100vw - 80px)); }
+ #modal-root .center { width:min(460px,calc(100vw - 64px));padding:28px;max-height:calc(100dvh - 64px);overflow-y:auto;border:1px solid var(--sep);background:var(--bg-el); }
+ #modal-root .grab { display:none; }
+ #modal-root .overlay-close { display:grid;place-items:center;position:sticky;top:0;float:inline-end;margin:0 0 12px 16px;width:36px;height:36px;border-radius:50%;border:1px solid var(--sep);background:var(--surface-2);color:var(--label);cursor:pointer;z-index:2; }
+ #modal-root .overlay-close .icn { width:16px;height:16px; }
+ #modal-root :is(.sheet,.center):focus { outline:none; }
+ #modal-root button:focus-visible { outline:2px solid var(--acc);outline-offset:3px; }
+ #modal-root .mback { backdrop-filter:blur(4px);background:rgba(0,0,0,.48); }
+}

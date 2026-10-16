@@ -1,10 +1,11 @@
+import { APP_NAME } from '../lib/brand.js'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useStore } from '../store/useStore.js'
 import { effectiveRoutines, effectiveRoutineIds, nextTrainingDay, streakWeeks, lastBW, setsDoneActive } from '../lib/history.js'
-import { fmtNum, fmtDate, todayISO, isoOf, weekStartOf, weekDayOffset, DAYS, DAYN } from '../lib/format.js'
+import { fmtNum, fmtDate, todayISO, isoOf, weekStartOf, weekKey, weekDayOffset, DAYS, DAYN } from '../lib/format.js'
 import { t, tn, dateLocale } from '../lib/i18n.js'
-import { bwSheet, goalSheet, dayOverrideSheet, calendarSheet, startFlow, starterPlanSheet, bwDeltaColor, weighInsSheet } from '../sheets.jsx'
+import { bwSheet, goalSheet, dayOverrideSheet, calendarSheet, startFlow, starterPlanSheet, bwDeltaColor, weighInsSheet, WorkoutRow, workoutDetailSheet } from '../sheets.jsx'
 import LineChart from '../components/LineChart.jsx'
 import Icon from '../components/Icon.jsx'
 import QueueRow from '../components/QueueRow.jsx'
@@ -15,6 +16,9 @@ import { Button } from '../components/ui.jsx'
 import { tappable } from '../lib/use-sheet-keyboard.js'
 import { glyphOf } from '../lib/glyphs.js'
 import { dayNoteOf } from '../lib/day-notes.js'
+import GymBuddyCard from '../components/GymBuddyCard.jsx'
+import BuddyHint from '../components/buddy/BuddyHint.jsx'
+import ThemeToggle from '../components/layout/ThemeToggle.jsx'
 
 // Home = what to do now + a quick glance. Deep charts & history live in Stats.
 export default function Home() {
@@ -41,6 +45,7 @@ export default function Home() {
   const delta = bw && prevBW ? bw.w - prevBW.w : null
 
   const ws = weekStartOf(S)
+  const loggedThisWeek = S.workouts.filter(w => weekKey(w.d, ws) === weekKey(todayISO(), ws)).length
   // The first day of the shown week. Named for the role, not for Monday — which day that is
   // is the setting.
   const wkStart = new Date(today)
@@ -102,11 +107,18 @@ export default function Home() {
 
   return <div className="narrow">
     <div className="hdr">
-      <div><h1>{user ? t('Hi {0}', user.name) : 'openGym'}</h1><div className="sub">{today.toLocaleDateString(dateLocale(), { weekday: 'long', day: 'numeric', month: 'long' })}</div></div>
+      <div><h1>{user ? t('Hi {0}', user.name) : APP_NAME}</h1><div className="sub">{today.toLocaleDateString(dateLocale(), { weekday: 'long', day: 'numeric', month: 'long' })}</div></div>
+      <div className="home-header-actions"><ThemeToggle className="home-theme-toggle" />
       <button className="iconbtn" onClick={() => nav('/settings')} aria-label={trouble ? t('Settings') + ', ' + t('Connection problem') : t('Settings')}><Icon name="gear" />{trouble && <span className="tab-dot" aria-hidden="true" />}</button>
+      </div>
     </div>
 
-    <div className="card">
+    <div className="home-desktop-metrics">
+      <div className="metric"><span>{t('Sessions this week')}</span><strong>{loggedThisWeek}</strong><small>{t('One session at a time')}</small></div>
+      <div className="metric"><span>{t('Workouts logged')}</span><strong>{S.workouts.length}</strong><small>{t('Your training history')}</small></div>
+      <div className="metric"><span>{t('Body weight')}</span><strong>{bw ? fmtNum(bw.w) : t('Not logged')} <span className="small muted">{bw ? S.unit : ''}</span></strong><small>{bw ? fmtDate(bw.d, true) : t('Log a weigh-in when you are ready')}</small></div>
+    </div>
+    <div className="card home-primary">
       {/* A coach week runs by order, not by weekday, so its progress row stands in for the
           seven dots (components/QueueRow.jsx). The today row below stays as it is: the queue's
           next session reaches it through effectiveRoutineIds like any planned routine. */}
@@ -158,10 +170,14 @@ export default function Home() {
       </div>}
     </div>
 
+    <GymBuddyCard active={!!S.active && !editingSaved} done={!!doneToday} />
+
+    <div className="home-dashboard-grid">
+    <div className="home-overview-stack">
     {/* Jump to the gym check-in cards (QR membership codes). Shown here as a quick tap on
         arrival at the gym; folds away per user via the "Gym check-in" switch in Settings. */}
     {S.checkIn !== false && (
-      <div className="card tappable" style={{ cursor: 'pointer' }} {...tappable(() => nav('/checkin'))}>
+      <div className="card tappable home-checkin" style={{ cursor: 'pointer' }} {...tappable(() => nav('/checkin'))}>
         <div className="row between">
           <div className="row" style={{ gap: 9 }}>
             <span className="lrow-i" style={{ background: 'var(--blue)' }}><Icon name="qr" /></span>
@@ -176,7 +192,7 @@ export default function Home() {
     )}
 
     {!S.routines.length && !S.active && (
-      <div className="card">
+      <div className="card home-welcome">
         <div className="row" style={{ gap: 10, marginBottom: 6 }}>
           <span className="lrow-i"><Icon name="calendar" /></span>
           <div className="big" style={{ fontSize: 22 }}>{t('Welcome!')}</div>
@@ -187,7 +203,21 @@ export default function Home() {
       </div>
     )}
 
-    {S.showWeightCard !== false && <div className="card">
+    <div className="card tappable home-streak" style={{ cursor: 'pointer' }} {...tappable(() => calendarSheet())}>
+      <div className="row between">
+        <div>
+          <div className="row" style={{ gap: 7, fontSize: 22, fontWeight: 600, letterSpacing: '-.021em' }}>
+            <Icon name="flame" style={{ color: 'var(--orange)' }} />
+            {t('{0} week streak', streakWeeks(S))}
+          </div>
+          <div className="muted small" style={{ marginTop: 2 }}>{doneThisWeek}{plannedPerWeek ? ' / ' + plannedPerWeek : ''} {t('this week')} · {tn('{0} workout total', '{0} workouts total', S.workouts.length)}</div>
+        </div>
+        <Icon name="calendar" className="chev" style={{ fontSize: 20 }} />
+      </div>
+    </div>
+    </div>
+
+    {S.showWeightCard !== false && <div className="card home-weight">
       <div className="row between bw-head" style={{ marginBottom: 6 }}>
         <h2 style={{ margin: 0 }}>{t('Body weight')}</h2>
         <div className="row" style={{ gap: 8 }}>
@@ -223,17 +253,12 @@ export default function Home() {
         : t("No weigh-ins yet. Log your weight to start the curve (we also ask before every workout).")}</div>}
     </div>}
 
-    <div className="card tappable" style={{ cursor: 'pointer' }} {...tappable(() => calendarSheet())}>
-      <div className="row between">
-        <div>
-          <div className="row" style={{ gap: 7, fontSize: 22, fontWeight: 600, letterSpacing: '-.021em' }}>
-            <Icon name="flame" style={{ color: 'var(--orange)' }} />
-            {t('{0} week streak', streakWeeks(S))}
-          </div>
-          <div className="muted small" style={{ marginTop: 2 }}>{doneThisWeek}{plannedPerWeek ? ' / ' + plannedPerWeek : ''} {t('this week')} · {tn('{0} workout total', '{0} workouts total', S.workouts.length)}</div>
-        </div>
-        <Icon name="calendar" className="chev" style={{ fontSize: 20 }} />
-      </div>
+
     </div>
+    <section className="home-recent">
+      <div className="row between" style={{ marginBottom: 12 }}><h2 style={{ margin: 0 }}>{t('Recent training')}</h2><Button size="sm" variant="ghost" trailingIcon="chevronRight" onClick={() => nav('/history')}>{t('View training log')}</Button></div>
+      {S.workouts.length ? <div className="card"><div className="list">{[...S.workouts].sort((a, b) => b.d.localeCompare(a.d)).slice(0, 3).map(w => <WorkoutRow key={w.id} w={w} onClick={() => workoutDetailSheet(w)} />)}</div></div>
+        : <BuddyHint>{t('Your first session starts a story. Build a program and your logged workouts will appear here.')}</BuddyHint>}
+    </section>
   </div>
 }

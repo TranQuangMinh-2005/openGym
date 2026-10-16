@@ -249,6 +249,12 @@ paths:
                     description: >-
                       When false, the client hides "continue without account".
                       Guest mode is purely client-side and never calls this API.
+                  single_user:
+                    type: boolean
+                    const: true
+                    description: >-
+                      Present when SINGLE_USER=1. Requests use one persistent server profile
+                      without login credentials; sign-in and sign-out controls are hidden.
                   coach:
                     description: >-
                       Present for a signed-in caller and absent otherwise; `null` when this

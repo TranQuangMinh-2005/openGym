@@ -82,6 +82,21 @@ afterEach(() => { act(() => { mounted.splice(0).forEach(({ root, host }) => { ro
 const asked = path => mocks.api.mock.calls.filter(([p]) => p === path).length
 
 describe('Settings: passkeys and another device', () => {
+  it('single-user mode keeps sync and admin access without login or sign-out controls', async () => {
+    mocks.config = { single_user: true, password_login: true }
+    mocks.user = { ...mocks.user, admin: true }
+    const page = mount(<Settings page="account" />)
+    await settle()
+    const account = titles(section(page, 'Account'))
+    expect(account).toContain('Admin dashboard')
+    expect(account).toContain('Account ID')
+    for (const title of ['Passkeys', 'Add another device', 'Pair the mobile app', 'Password', 'Sign out', 'Sign out everywhere']) {
+      expect(account).not.toContain(title)
+    }
+    expect(asked('/api/account/passkeys')).toBe(0)
+    expect(asked('/api/account/password')).toBe(0)
+  })
+
   it('a signed-in browser lists its passkeys and offers a code for another device, in Account', async () => {
     const page = mount(<Settings page="account" />)
     await settle()

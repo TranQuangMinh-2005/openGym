@@ -13,6 +13,7 @@ import { t } from '../lib/i18n.js'
 import LineChart from '../components/LineChart.jsx'
 import Icon from '../components/Icon.jsx'
 import { Button, NumberField, Section, Segmented, SelectRow, Switch, TextField } from '../components/ui.jsx'
+import BuddyHint from '../components/buddy/BuddyHint.jsx'
 import { confirmSheet } from '../sheets.jsx'
 
 // Every write leaves the list in its one-entry-per-day shape (normalizeMeasurementsState).
@@ -192,6 +193,8 @@ export default function Measurements() {
       <button className="iconbtn" onClick={manageMeasurementsSheet} aria-label={t('Choose measurements')}><Icon name="gear" /></button>
     </div>
 
+    <BuddyHint>{t('Track the measurements that matter to you. Consistent check-ins make trends easier to see.')}</BuddyHint>
+    <div className="measurements-workspace"><section className="measurements-trend">
     <div className="card">
       <div className="row between" style={{ marginBottom: 10 }}>
         <div>
@@ -215,6 +218,7 @@ export default function Measurements() {
       <div style={{ height: 10 }} /><Button onClick={manageMeasurementsSheet}>{t('Choose measurements')}</Button>
     </div>}
 
+    </section><section className="measurements-log">
     <div className="row between" style={{ margin: '18px 2px 10px' }}>
       <h4 className="sec" style={{ margin: 0 }}>{t('Measurement history')}</h4>
       <Button size="sm" variant="ghost" icon="gear" onClick={manageMeasurementsSheet}>{t('Fields')}</Button>
@@ -233,5 +237,6 @@ export default function Measurements() {
         {previewFields.length > 0 && <div className="measure-preview">{previewFields.map(({ field: f, value }) => <span key={f.key}>{t(f.label)} <b>{fmtNum(value)} {fieldUnit(f, S.unit)}</b></span>)}</div>}
       </div>
     })}</div> : <div className="empty small">{t('No measurements yet')}</div>}
+    </section></div>
   </div>
 }

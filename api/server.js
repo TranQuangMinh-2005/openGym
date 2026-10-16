@@ -41,6 +41,8 @@ const DATA = process.env.DATA_DIR || '/data';
 const RP_ID = process.env.RP_ID || 'localhost';
 const ORIGIN = process.env.ORIGIN || 'http://localhost:8080';
 const RP_NAME = process.env.RP_NAME || 'openGym';
+// Local single-user instances enter one persistent profile without a sign-in ceremony.
+const SINGLE_USER = /^(1|true|yes|on)$/i.test(process.env.SINGLE_USER || '');
 // Admin dashboard (issue): admins are matched by uid (or the admin flag FIRST_USER_ADMIN sets);
 // INVITE_ONLY gates new signups behind a code the admin generates. Off by default, so a fresh
 // self-hosted instance stays open.
@@ -162,6 +164,21 @@ function saveDb() {
 // Flushed before and after the rename (durable.js): a host reset must not bring back the file
 // the client was told had been replaced.
 function atomicWrite(file, content, mode) { durableWrite(file, content, mode); }
+const singleUser = (() => {
+  if (!SINGLE_USER) return null;
+  const id = process.env.SINGLE_USER_ID;
+  let user = id ? db.users.find(u => u.id === id) : db.users.length === 1 ? db.users[0] : null;
+  if (!user && (id || db.users.length)) {
+    throw new Error('Set SINGLE_USER_ID to an existing profile when multiple profiles exist.');
+  }
+  if (!user) {
+    user = { id: 'single-user', name: 'My profile', admin: true, created: new Date().toISOString() };
+    db.users.push(user);
+    saveDb();
+  }
+  if (user.disabled) throw new Error('The single-user profile is disabled.');
+  return user;
+})();
 // How many earlier write ids a document keeps (`_wids`, see PUT /api/data): a device that last
 // synced more writes ago than this merges on its next pull instead of taking the server's copy.
 const WID_KEEP = 50;
@@ -590,6 +607,7 @@ function cookieToken(req) {
 // The session behind a request: { user, exp, bearer } — `bearer` when it came in an Authorization
 // header (a paired phone) rather than the cookie — or null for no valid session at all.
 function sessionOf(req) {
+  if (singleUser) return { user: singleUser, exp: Infinity, bearer: false };
   // The paired mobile app has no cookie jar shared with the API's origin, so it carries the same
   // signed token in an Authorization header instead — same payload, same verification below.
   const auth = req.headers.authorization || '';
@@ -1934,6 +1952,7 @@ const routes = {
     // that has no Coach. The key's absence is that answer.
     json(res, 200, {
       invite_only: INVITE_ONLY, allow_guest: ALLOW_GUEST,
+      ...(SINGLE_USER ? { single_user: true } : {}),
       // Only when on, so an instance without passwords answers exactly as it did before (#118).
       ...(PASSWORD_LOGIN ? { password_login: true } : {}),
       // Public: the sign-in screen is the first thing that reads it.
@@ -2630,6 +2649,9 @@ const server = http.createServer(async (req, res) => {
   // (auth is the Authorization header instead), so Allow-Credentials is deliberately never set —
   // reflecting the origin here can't expose the cookie session to anyone.
   const origin = req.headers.origin;
+  if (SINGLE_USER && ((origin && !originsMatch(origin, ORIGIN)) || ['cross-site', 'same-site'].includes(req.headers['sec-fetch-site']))) {
+    return json(res, 403, { error: 'cross-origin request refused' });
+  }
   if (origin) { res.setHeader('Access-Control-Allow-Origin', origin); res.setHeader('Vary', 'Origin'); }
   if (req.method === 'OPTIONS') {
     // Chrome's Private Network Access asks before a page reaches a LAN address (a phone pairing

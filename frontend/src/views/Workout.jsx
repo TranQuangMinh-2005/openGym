@@ -1,3 +1,4 @@
+import BuddyHint from '../components/buddy/BuddyHint.jsx'
 import { Fragment, useEffect, useId, useRef, useState } from 'react'
 import SwipeCards from '../components/SwipeCards.jsx'
 import SwipeRow from '../components/SwipeRow.jsx'
@@ -63,7 +64,9 @@ function StartChooser() {
   const idSet = new Set(todayIds)
   const others = S.routines.filter(r => !idSet.has(r.id))
   return <div className="narrow">
-    <div className="hdr"><div><h1>{t('Start workout')}</h1><div className="sub">{t(DAYN[new Date().getDay()])} · {todayRoutines.length ? t('today is {0}', todayName) : t('rest day, but no one’s stopping you')}</div></div></div>
+    <div className="hdr"><div><h1>{t('Start workout')}</h1><div className="sub">{t(DAYN[new Date().getDay()])} · {todayRoutines.length ? t('today is {0}', todayName) : t('rest day, but no one’s stopping you')}</div>
+    </div></div>
+    <BuddyHint>{t('Choose a routine or start freestyle. Log what you actually do, one set at a time.')}</BuddyHint>
     {todayRoutines.length > 0 && <div className="card" style={{ borderColor: 'var(--acc)' }}>
       <h2 className="accent">{t("Today's plan")}{todayOvr ? ' · ' + t('rescheduled') : ''}</h2>
       <div className="row between" style={{ marginBottom: 12 }}>
@@ -1928,6 +1931,16 @@ function ActiveWorkout() {
     {editing && <p className="muted small">{t('Editing a saved workout. Date and duration stay unchanged.')}</p>}
     {A.backfill && <div className="muted small" style={{ marginBottom: 8 }}>{t('Logging a past workout, so no rest timers.')}</div>}
 
+    <div className="workout-desktop-layout">
+      {A.entries.length > 0 && <nav className="workout-session-nav" aria-label={t('Session exercises')}>
+        <h4>{t('This session')}</h4>
+        {units.map((u, i) => <button key={u.join('-')} aria-current={u.includes(cur) ? 'step' : undefined} onClick={() => { focusUnit(u[0]); if (listMode) requestAnimationFrame(() => scrollToUnit(listRef.current?.querySelector('.wl-unit.cur'))) }}>
+          <span>{u.every(idx => A.entries[idx].sets.length && A.entries[idx].sets.every(s => s.done)) ? <Icon name="check" /> : i + 1}</span>
+          <div>{u.map(idx => exerciseNameFor(exOr(A.entries[idx].id))).join(' + ')}<small>{t('{0} sets', u.reduce((n, idx) => n + A.entries[idx].sets.filter(s => s.done).length, 0) + '/' + u.reduce((n, idx) => n + A.entries[idx].sets.length, 0))}</small></div>
+        </button>)}
+        <BuddyHint state="training">{t('One set at a time. Your session stays here when you switch pages.')}</BuddyHint>
+      </nav>}
+    <div className="workout-session-content">
     {A.entries.length ? (listMode ? (
       <div className="workout-list" data-testid="workout-list" ref={listRef}>
         {units.map((u, ui) => {
@@ -2080,6 +2093,7 @@ function ActiveWorkout() {
       </button>
     })()}
     <div className="workout-end-spacer" />
+    </div></div>
   </WorkoutScrollAnchor>
 }
 

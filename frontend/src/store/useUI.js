@@ -214,6 +214,8 @@ function endTone(enabled, kind) {
 }
 
 export const useUI = create((set, get) => ({
+  buddyActivity: 'idle',
+  setBuddyActivity: value => set({ buddyActivity: value }),
   sheets: [],          // { id, render:(close)=>JSX, kind:'sheet'|'center', locked }
   toastMsg: '',
   toastAction: null,   // { label, run, id } while the toast offers an action (Undo)
@@ -232,9 +234,9 @@ export const useUI = create((set, get) => ({
     set(s => ({ timerFlashId: s.timerFlashId + 1 }))
   },
 
-  openSheet(render, { kind = 'sheet', locked = false } = {}) {
+  openSheet(render, { kind = 'sheet', locked = false, presentation = 'auto', label = '' } = {}) {
     const id = uid()
-    set(s => ({ sheets: [...s.sheets, { id, render, kind, locked }] }))
+    set(s => ({ sheets: [...s.sheets, { id, render, kind, locked, presentation, label }] }))
     const close = () => get().closeSheet(id)
     return { id, close, lock: v => set(s => ({ sheets: s.sheets.map(x => x.id === id ? { ...x, locked: v } : x) })) }
   },

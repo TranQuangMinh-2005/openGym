@@ -1,6 +1,8 @@
 import { useEffect, useLayoutEffect, useRef } from 'react'
 import { useUI } from '../store/useUI.js'
 import { keyboardOpen } from '../lib/viewport-guard.js'
+import Icon from './Icon.jsx'
+import { t } from '../lib/i18n.js'
 
 // Putting the page back after a sheet closes takes up to three goes (see the un-pin below): now,
 // next frame, and once the keyboard's dismiss animation is over. Anything else that wants to
@@ -45,9 +47,30 @@ const drainScrollRestore = close => {
 }
 
 // One bottom sheet (or centered dialog) with swipe-to-dismiss.
-function Sheet({ sheet }) {
+function Sheet({ sheet, active }) {
   const { closeSheet } = useUI()
   const ref = useRef(null)
+  useEffect(() => {
+    const el = ref.current
+    if (!active || !el) return
+    const previous = document.activeElement
+    const heading = el.querySelector('h1, h2, h3')
+    if (heading) { heading.id ||= 'dialog-title-' + sheet.id; el.setAttribute('aria-labelledby', heading.id) }
+    const controls = () => [...el.querySelectorAll('button, a[href], input, textarea, select, [tabindex="0"]')].filter(n => {
+      const style = window.getComputedStyle?.(n)
+      return !n.disabled && !n.hidden && n.type !== 'hidden' && !n.closest('[inert]') && style?.display !== 'none' && style?.visibility !== 'hidden'
+    })
+    queueMicrotask(() => { if (el.isConnected && !el.contains(document.activeElement)) (controls()[0] || el).focus({ preventScroll: true }) })
+    const trap = e => {
+      if (e.key !== 'Tab') return
+      const nodes = controls(), first = nodes[0], last = nodes.at(-1)
+      if (!first) { e.preventDefault(); el.focus(); return }
+      if (e.shiftKey && (document.activeElement === first || !el.contains(document.activeElement))) { e.preventDefault(); last.focus() }
+      else if (!e.shiftKey && (document.activeElement === last || !el.contains(document.activeElement))) { e.preventDefault(); first.focus() }
+    }
+    el.addEventListener('keydown', trap)
+    return () => { el.removeEventListener('keydown', trap); queueMicrotask(() => { if (previous?.isConnected && !previous.closest('[inert]')) previous.focus?.({ preventScroll: true }) }) }
+  }, [active, sheet.id])
   // startY null = no gesture. axis stays null until the finger has travelled far enough to
   // tell a vertical pull from a sideways scroll; 'x' hands the gesture to whatever scrolls
   // horizontally under it (chip strips, heatmap) and the sheet stays put.
@@ -59,6 +82,7 @@ function Sheet({ sheet }) {
   // opted out too: a sideways scroll must never wobble or pull down the sheet.
   const NODRAG = 'input[type=range], [data-nodrag], .chips, .hm-wrap'
   const begin = (target, x, y) => {
+    if (window.matchMedia?.('(min-width:768px)').matches) return
     const el = ref.current
     if (target.closest && target.closest(NODRAG)) { drag.current = idle(); return }
     if (el.scrollTop > 0) { drag.current = idle(); return }
@@ -130,7 +154,9 @@ function Sheet({ sheet }) {
     return (
       <div>
         <div className="mback" onClick={() => { if (!sheet.locked) close() }} />
-        <div className="center">{sheet.render(close)}</div>
+        <div className="center" ref={ref} role="dialog" aria-modal={active || undefined} aria-label={sheet.label || t('Dialog')} aria-hidden={!active || undefined} inert={!active ? true : undefined} tabIndex={-1}>
+          {!sheet.locked && <button className="overlay-close" aria-label={t('Close dialog')} onClick={close}><Icon name="xmark" /></button>}
+          {sheet.render(close)}</div>
       </div>
     )
   }
@@ -138,8 +164,10 @@ function Sheet({ sheet }) {
     <div>
       <div className="mback" onClick={() => { if (!sheet.locked) close() }} />
       <div className="sheet" ref={ref} onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}
+        role="dialog" aria-modal={active || undefined} aria-label={sheet.label || t('Dialog')} aria-hidden={!active || undefined} inert={!active ? true : undefined} tabIndex={-1} data-presentation={sheet.presentation || 'auto'}
         onMouseDown={onMouseDown} onMouseMove={onMouseMove} onMouseUp={onMouseUp} onMouseLeave={onMouseUp}>
         <div className="grab" />
+        {!sheet.locked && <button className="overlay-close" aria-label={t('Close dialog')} onClick={close}><Icon name="xmark" /></button>}
         {sheet.render(close)}
       </div>
     </div>
@@ -153,6 +181,13 @@ export default function Modals() {
   const suppressPop = useRef(false)
   const pushedEntries = useRef(0)
   const sheetEntries = useRef([])
+  useEffect(() => {
+    if (!sheets.length) return
+    const elements = [...document.querySelectorAll('.workspace-shell, #tabbar, #timer')]
+    const previous = elements.map(el => el.inert)
+    elements.forEach(el => { el.inert = true })
+    return () => elements.forEach((el, i) => { el.inert = previous[i] })
+  }, [sheets.length > 0])
 
   // Every opened sheet gets a history entry so Android back dismisses it instead of
   // leaving the page (issue #63). Keep the pushed-entry count and each active sheet's
@@ -271,7 +306,7 @@ export default function Modals() {
   if (!sheets.length) return null
   return (
     <div id="modal-root" className="open">
-      {sheets.map(s => <Sheet key={s.id} sheet={s} />)}
+      {sheets.map((s, i) => <Sheet key={s.id} sheet={s} active={i === sheets.length - 1} />)}
     </div>
   )
 }

@@ -58,6 +58,7 @@ function swipe(target, x0, x1) {
 const undo = () => act(() => useUI.getState().runToastAction())
 
 beforeEach(() => {
+  window.happyDOM.setWindowSize({ width: 375, height: 812 })
   vi.useFakeTimers()
   nav.mockClear(); confirmSheet.mockClear()
   document.documentElement.dir = 'ltr'

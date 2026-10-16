@@ -111,3 +111,27 @@ describe('LineChart y axis', () => {
     expect(labels.some(l => /^[-\u2212]0$/.test(l))).toBe(false)
   })
 })
+
+describe('keyboard chart exploration', () => {
+  it('exposes the selected value with arrow keys, Home and End', () => {
+    renderChart(firstPoints)
+    const chart = container.querySelector('.chart-i')
+    const press = key => act(() => chart.dispatchEvent(new KeyboardEvent('keydown', { key, bubbles: true })))
+    expect(chart.tabIndex).toBe(0)
+    press('Home')
+    const first = container.querySelector('.ctip').textContent
+    expect(chart.getAttribute('aria-describedby')).toBe(container.querySelector('.ctip').id)
+    press('End')
+    expect(container.querySelector('.ctip').textContent).not.toBe(first)
+    press('Home')
+    expect(container.querySelector('.ctip').textContent).toBe(first)
+    press('Escape')
+    expect(container.querySelector('.ctip')).toBeNull()
+  })
+
+  it('gives two charts with the same dates distinct SVG gradients', () => {
+    act(() => root.render(<><LineChart points={firstPoints} /><LineChart points={firstPoints} /></>))
+    const ids = [...container.querySelectorAll('linearGradient')].map(n => n.id)
+    expect(new Set(ids).size).toBe(2)
+  })
+})
