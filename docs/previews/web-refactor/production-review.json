@@ -1,0 +1,56 @@
+{
+  "origin": "http://localhost:8080",
+  "bundle": "./assets/index-DLUEEiH5.js",
+  "cases": [
+    {
+      "route": "plan",
+      "width": 1440,
+      "scroll": 1440,
+      "title": "Plan"
+    },
+    {
+      "route": "history",
+      "width": 1440,
+      "scroll": 1440,
+      "title": "History"
+    },
+    {
+      "route": "library",
+      "width": 1440,
+      "scroll": 1440,
+      "title": "Exercises"
+    },
+    {
+      "route": "stats",
+      "width": 1440,
+      "scroll": 1440,
+      "title": "Stats"
+    },
+    {
+      "route": "measurements",
+      "width": 1440,
+      "scroll": 1440,
+      "title": "Body measurements"
+    },
+    {
+      "route": "settings",
+      "width": 1440,
+      "scroll": 1440,
+      "title": "Settings"
+    },
+    {
+      "route": "coach",
+      "width": 1440,
+      "scroll": 1440,
+      "title": "Meet Gym Buddy."
+    }
+  ],
+  "theme": {
+    "muted": "#56634c",
+    "text": "#20291b",
+    "background": "#f3f5ef",
+    "accentText": "color(srgb 0.134588 0.454118 0.206275)"
+  },
+  "errors": [],
+  "blockedWrites": 0
+}

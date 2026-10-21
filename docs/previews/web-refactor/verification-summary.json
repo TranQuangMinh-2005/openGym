@@ -1,0 +1,34 @@
+{
+  "frontend": {
+    "suites_verified": 402,
+    "tests_verified": 5063,
+    "full_sweep_passed": 5038,
+    "isolated_timeout_rerun_passed": 25,
+    "focused_changed_ui_passed": 42,
+    "focused_chat_modal_plan_chart_passed": 127,
+    "unhandled_errors_final": 0
+  },
+  "locales": {
+    "packs": 18,
+    "keys_each": 2258,
+    "consistent": true,
+    "new_strings": "English fallback until translated"
+  },
+  "fatigue": {
+    "monotonic_comparisons": 108000,
+    "history_edit_comparisons": 1800,
+    "passed": true
+  },
+  "production": {
+    "origin": "http://localhost:8080",
+    "js": "index-DLUEEiH5.js",
+    "css": "index-BZWAuw3e.css",
+    "build_passed": true
+  },
+  "real_profile_after_review": {
+    "rev": 8,
+    "routines": 3,
+    "workouts": 0,
+    "weigh_ins": 1
+  }
+}

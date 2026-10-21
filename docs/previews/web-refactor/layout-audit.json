@@ -1,0 +1,800 @@
+{
+  "cases": [
+    {
+      "viewport": [
+        375,
+        812
+      ],
+      "route": "home",
+      "width": 375,
+      "scroll": 375,
+      "title": "Hi My profile",
+      "buddy": false,
+      "sidebar": false
+    },
+    {
+      "viewport": [
+        375,
+        812
+      ],
+      "route": "plan",
+      "width": 375,
+      "scroll": 375,
+      "title": "Plan",
+      "buddy": false,
+      "sidebar": false
+    },
+    {
+      "viewport": [
+        375,
+        812
+      ],
+      "route": "history",
+      "width": 375,
+      "scroll": 375,
+      "title": "History",
+      "buddy": false,
+      "sidebar": false
+    },
+    {
+      "viewport": [
+        375,
+        812
+      ],
+      "route": "library",
+      "width": 375,
+      "scroll": 375,
+      "title": "History",
+      "buddy": false,
+      "sidebar": false
+    },
+    {
+      "viewport": [
+        375,
+        812
+      ],
+      "route": "stats",
+      "width": 375,
+      "scroll": 375,
+      "title": "History",
+      "buddy": false,
+      "sidebar": false
+    },
+    {
+      "viewport": [
+        375,
+        812
+      ],
+      "route": "measurements",
+      "width": 375,
+      "scroll": 375,
+      "title": "Body measurements",
+      "buddy": false,
+      "sidebar": false
+    },
+    {
+      "viewport": [
+        375,
+        812
+      ],
+      "route": "settings",
+      "width": 375,
+      "scroll": 375,
+      "title": "Settings",
+      "buddy": false,
+      "sidebar": false
+    },
+    {
+      "viewport": [
+        375,
+        812
+      ],
+      "route": "coach",
+      "width": 375,
+      "scroll": 375,
+      "title": "Meet Gym Buddy.",
+      "buddy": false,
+      "sidebar": false
+    },
+    {
+      "viewport": [
+        375,
+        812
+      ],
+      "check": "buddy drawer",
+      "mainInert": true,
+      "focusInDialog": true
+    },
+    {
+      "viewport": [
+        768,
+        1024
+      ],
+      "route": "home",
+      "width": 768,
+      "scroll": 768,
+      "title": "Hi My profile",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        768,
+        1024
+      ],
+      "route": "plan",
+      "width": 768,
+      "scroll": 768,
+      "title": "Plan",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        768,
+        1024
+      ],
+      "route": "history",
+      "width": 768,
+      "scroll": 768,
+      "title": "History",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        768,
+        1024
+      ],
+      "route": "library",
+      "width": 768,
+      "scroll": 768,
+      "title": "History",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        768,
+        1024
+      ],
+      "route": "stats",
+      "width": 768,
+      "scroll": 768,
+      "title": "Exercises",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        768,
+        1024
+      ],
+      "route": "measurements",
+      "width": 768,
+      "scroll": 768,
+      "title": "Stats",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        768,
+        1024
+      ],
+      "route": "settings",
+      "width": 768,
+      "scroll": 768,
+      "title": "Settings",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        768,
+        1024
+      ],
+      "route": "coach",
+      "width": 768,
+      "scroll": 768,
+      "title": "Meet Gym Buddy.",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        1024,
+        768
+      ],
+      "route": "home",
+      "width": 1024,
+      "scroll": 1024,
+      "title": "Hi My profile",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        1024,
+        768
+      ],
+      "route": "plan",
+      "width": 1024,
+      "scroll": 1024,
+      "title": "Hi My profile",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        1024,
+        768
+      ],
+      "route": "history",
+      "width": 1024,
+      "scroll": 1024,
+      "title": "Plan",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        1024,
+        768
+      ],
+      "route": "library",
+      "width": 1024,
+      "scroll": 1024,
+      "title": "History",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        1024,
+        768
+      ],
+      "route": "stats",
+      "width": 1024,
+      "scroll": 1024,
+      "title": "Exercises",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        1024,
+        768
+      ],
+      "route": "measurements",
+      "width": 1024,
+      "scroll": 1024,
+      "title": "Exercises",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        1024,
+        768
+      ],
+      "route": "settings",
+      "width": 1024,
+      "scroll": 1024,
+      "title": "Settings",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        1024,
+        768
+      ],
+      "route": "coach",
+      "width": 1024,
+      "scroll": 1024,
+      "title": "Meet Gym Buddy.",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        1024,
+        768
+      ],
+      "check": "buddy drawer",
+      "mainInert": true,
+      "focusInDialog": true
+    },
+    {
+      "viewport": [
+        1280,
+        800
+      ],
+      "route": "home",
+      "width": 1280,
+      "scroll": 1280,
+      "title": "Hi My profile",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        1280,
+        800
+      ],
+      "route": "plan",
+      "width": 1280,
+      "scroll": 1280,
+      "title": "Plan",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        1280,
+        800
+      ],
+      "route": "history",
+      "width": 1280,
+      "scroll": 1280,
+      "title": "History",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        1280,
+        800
+      ],
+      "route": "library",
+      "width": 1280,
+      "scroll": 1280,
+      "title": "History",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        1280,
+        800
+      ],
+      "route": "stats",
+      "width": 1280,
+      "scroll": 1280,
+      "title": "Exercises",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        1280,
+        800
+      ],
+      "route": "measurements",
+      "width": 1280,
+      "scroll": 1280,
+      "title": "Stats",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        1280,
+        800
+      ],
+      "route": "settings",
+      "width": 1280,
+      "scroll": 1280,
+      "title": "Settings",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        1280,
+        800
+      ],
+      "route": "coach",
+      "width": 1280,
+      "scroll": 1280,
+      "title": "Meet Gym Buddy.",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        1366,
+        768
+      ],
+      "route": "home",
+      "width": 1366,
+      "scroll": 1366,
+      "title": "Hi My profile",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        1366,
+        768
+      ],
+      "route": "plan",
+      "width": 1366,
+      "scroll": 1366,
+      "title": "Plan",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        1366,
+        768
+      ],
+      "route": "history",
+      "width": 1366,
+      "scroll": 1366,
+      "title": "History",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        1366,
+        768
+      ],
+      "route": "library",
+      "width": 1366,
+      "scroll": 1366,
+      "title": "History",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        1366,
+        768
+      ],
+      "route": "stats",
+      "width": 1366,
+      "scroll": 1366,
+      "title": "Exercises",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        1366,
+        768
+      ],
+      "route": "measurements",
+      "width": 1366,
+      "scroll": 1366,
+      "title": "Exercises",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        1366,
+        768
+      ],
+      "route": "settings",
+      "width": 1366,
+      "scroll": 1366,
+      "title": "Body measurements",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        1366,
+        768
+      ],
+      "route": "coach",
+      "width": 1366,
+      "scroll": 1366,
+      "title": "Settings",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "route": "home",
+      "width": 1440,
+      "scroll": 1440,
+      "title": "Hi My profile",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "route": "plan",
+      "width": 1440,
+      "scroll": 1440,
+      "title": "Plan",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "route": "history",
+      "width": 1440,
+      "scroll": 1440,
+      "title": "History",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "route": "library",
+      "width": 1440,
+      "scroll": 1440,
+      "title": "History",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "route": "stats",
+      "width": 1440,
+      "scroll": 1440,
+      "title": "Exercises",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "route": "measurements",
+      "width": 1440,
+      "scroll": 1440,
+      "title": "Body measurements",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "route": "settings",
+      "width": 1440,
+      "scroll": 1440,
+      "title": "Settings",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "route": "coach",
+      "width": 1440,
+      "scroll": 1440,
+      "title": "Meet Gym Buddy.",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "check": "desktop exercise drawer",
+      "presentation": "drawer",
+      "left": 840,
+      "width": 600,
+      "focusInside": true,
+      "mainInert": true
+    },
+    {
+      "viewport": [
+        1920,
+        1080
+      ],
+      "route": "home",
+      "width": 1920,
+      "scroll": 1920,
+      "title": "Hi My profile",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        1920,
+        1080
+      ],
+      "route": "plan",
+      "width": 1920,
+      "scroll": 1920,
+      "title": "Plan",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        1920,
+        1080
+      ],
+      "route": "history",
+      "width": 1920,
+      "scroll": 1920,
+      "title": "History",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        1920,
+        1080
+      ],
+      "route": "library",
+      "width": 1920,
+      "scroll": 1920,
+      "title": "History",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        1920,
+        1080
+      ],
+      "route": "stats",
+      "width": 1920,
+      "scroll": 1920,
+      "title": "Exercises",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        1920,
+        1080
+      ],
+      "route": "measurements",
+      "width": 1920,
+      "scroll": 1920,
+      "title": "Stats",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        1920,
+        1080
+      ],
+      "route": "settings",
+      "width": 1920,
+      "scroll": 1920,
+      "title": "Body measurements",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        1920,
+        1080
+      ],
+      "route": "coach",
+      "width": 1920,
+      "scroll": 1920,
+      "title": "Settings",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        812,
+        375
+      ],
+      "route": "home",
+      "width": 812,
+      "scroll": 812,
+      "title": "Hi My profile",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        812,
+        375
+      ],
+      "route": "plan",
+      "width": 812,
+      "scroll": 812,
+      "title": "Plan",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        812,
+        375
+      ],
+      "route": "history",
+      "width": 812,
+      "scroll": 812,
+      "title": "History",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        812,
+        375
+      ],
+      "route": "library",
+      "width": 812,
+      "scroll": 812,
+      "title": "History",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        812,
+        375
+      ],
+      "route": "stats",
+      "width": 812,
+      "scroll": 812,
+      "title": "Exercises",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        812,
+        375
+      ],
+      "route": "measurements",
+      "width": 812,
+      "scroll": 812,
+      "title": "Body measurements",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        812,
+        375
+      ],
+      "route": "settings",
+      "width": 812,
+      "scroll": 812,
+      "title": "Settings",
+      "buddy": false,
+      "sidebar": true
+    },
+    {
+      "viewport": [
+        812,
+        375
+      ],
+      "route": "coach",
+      "width": 812,
+      "scroll": 812,
+      "title": "Meet Gym Buddy.",
+      "buddy": false,
+      "sidebar": true
+    }
+  ],
+  "errors": [],
+  "blockedWrites": 0
+}

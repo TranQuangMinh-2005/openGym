@@ -1,0 +1,82 @@
+{
+  "brand": "GymBuddy",
+  "manifest": {
+    "name": "GymBuddy",
+    "short_name": "GymBuddy",
+    "description": "Your training plan, workout log and gym companion",
+    "start_url": "./",
+    "scope": "./",
+    "display": "standalone",
+    "orientation": "portrait",
+    "background_color": "#141714",
+    "theme_color": "#141714",
+    "icons": [
+      {
+        "src": "icon-180.png",
+        "sizes": "180x180",
+        "type": "image/png",
+        "purpose": "any"
+      },
+      {
+        "src": "icon-512.png",
+        "sizes": "512x512",
+        "type": "image/png",
+        "purpose": "any maskable"
+      }
+    ]
+  },
+  "cases": [
+    {
+      "route": "home",
+      "width": 1440,
+      "scroll": 1440
+    },
+    {
+      "route": "plan",
+      "width": 1440,
+      "scroll": 1440
+    },
+    {
+      "route": "library",
+      "width": 1440,
+      "scroll": 1440
+    },
+    {
+      "route": "history",
+      "width": 1440,
+      "scroll": 1440
+    },
+    {
+      "route": "measurements",
+      "width": 1440,
+      "scroll": 1440
+    },
+    {
+      "route": "settings/look",
+      "width": 1440,
+      "scroll": 1440
+    },
+    {
+      "route": "coach",
+      "width": 1440,
+      "scroll": 1440
+    }
+  ],
+  "contrast": {
+    "title": 13.96391097131669,
+    "muted": 6.137226029215795,
+    "buddyText": 6.61164902248067,
+    "textAction": 5.401656212069485,
+    "primary": 9.459636182804893
+  },
+  "errors": [],
+  "checks": [
+    "desktop toggle",
+    "saved preference",
+    "reload persistence",
+    "mobile toggle",
+    "system follows dark/light OS preference",
+    "5 viewport sizes"
+  ],
+  "isolatedPreferenceWrites": 1
+}

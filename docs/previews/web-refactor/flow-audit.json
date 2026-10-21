@@ -1,0 +1,17 @@
+{
+  "passed": [
+    "routine inspector selection",
+    "start routine",
+    "log set and rest timer",
+    "resize preserves session and timer",
+    "minimize and resume",
+    "finish saves training log",
+    "dialog focus trap and return",
+    "draft survives navigation",
+    "opening Buddy adds no status poll",
+    "200% equivalent viewport"
+  ],
+  "blockedWrites": 14,
+  "coachStatusRequests": 4,
+  "errors": []
+}

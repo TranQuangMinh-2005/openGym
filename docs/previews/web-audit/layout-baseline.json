@@ -1,0 +1,170 @@
+{
+  "report": [
+    {
+      "route": "home",
+      "app": {
+        "width": 1080,
+        "left": 180,
+        "height": 1293
+      },
+      "narrow": {
+        "width": 640,
+        "left": 400,
+        "height": 1113
+      },
+      "tabs": {
+        "width": 520,
+        "left": 460,
+        "height": 63
+      },
+      "title": "Hi My profile",
+      "scrollWidth": 1440,
+      "viewport": 1440
+    },
+    {
+      "route": "plan",
+      "app": {
+        "width": 1080,
+        "left": 180,
+        "height": 1028
+      },
+      "narrow": {
+        "width": 640,
+        "left": 400,
+        "height": 838
+      },
+      "tabs": {
+        "width": 520,
+        "left": 460,
+        "height": 63
+      },
+      "title": "Plan",
+      "scrollWidth": 1440,
+      "viewport": 1440
+    },
+    {
+      "route": "history",
+      "app": {
+        "width": 1080,
+        "left": 180,
+        "height": 463
+      },
+      "narrow": null,
+      "tabs": {
+        "width": 520,
+        "left": 460,
+        "height": 63
+      },
+      "title": "History",
+      "scrollWidth": 1440,
+      "viewport": 1440
+    },
+    {
+      "route": "library",
+      "app": {
+        "width": 1080,
+        "left": 180,
+        "height": 3745
+      },
+      "narrow": null,
+      "tabs": {
+        "width": 520,
+        "left": 460,
+        "height": 63
+      },
+      "title": "Exercises",
+      "scrollWidth": 1440,
+      "viewport": 1440
+    },
+    {
+      "route": "stats",
+      "app": {
+        "width": 1080,
+        "left": 180,
+        "height": 2146
+      },
+      "narrow": null,
+      "tabs": {
+        "width": 520,
+        "left": 460,
+        "height": 63
+      },
+      "title": "Stats",
+      "scrollWidth": 1440,
+      "viewport": 1440
+    },
+    {
+      "route": "measurements",
+      "app": {
+        "width": 1080,
+        "left": 180,
+        "height": 724
+      },
+      "narrow": {
+        "width": 640,
+        "left": 400,
+        "height": 556
+      },
+      "tabs": {
+        "width": 520,
+        "left": 460,
+        "height": 63
+      },
+      "title": "Body measurements",
+      "scrollWidth": 1440,
+      "viewport": 1440
+    },
+    {
+      "route": "settings",
+      "app": {
+        "width": 1080,
+        "left": 180,
+        "height": 1000
+      },
+      "narrow": {
+        "width": 640,
+        "left": 400,
+        "height": 836
+      },
+      "tabs": {
+        "width": 520,
+        "left": 460,
+        "height": 63
+      },
+      "title": "Settings",
+      "scrollWidth": 1440,
+      "viewport": 1440
+    },
+    {
+      "route": "workout",
+      "app": {
+        "width": 1080,
+        "left": 180,
+        "height": 658
+      },
+      "narrow": {
+        "width": 640,
+        "left": 400,
+        "height": 490
+      },
+      "tabs": {
+        "width": 520,
+        "left": 460,
+        "height": 63
+      },
+      "title": "Start workout",
+      "scrollWidth": 1440,
+      "viewport": 1440
+    },
+    {
+      "route": "exercise-dialog",
+      "dialog": {
+        "width": 640,
+        "height": 900,
+        "role": null,
+        "ariaModal": null
+      }
+    }
+  ],
+  "errors": []
+}
