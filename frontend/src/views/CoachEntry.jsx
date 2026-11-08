@@ -1,3 +1,4 @@
+import { FOCUS } from '../lib/scope.js'
 import { useNavigate } from 'react-router-dom'
 import { useStore } from '../store/useStore.js'
 import { coachAvailable } from '../lib/coach.js'
@@ -5,6 +6,7 @@ import { t } from '../lib/i18n.js'
 import { MOBILE } from '../lib/mobile.js'
 import { DEMO } from '../lib/demo.js'
 import CoachChat from './CoachChat.jsx'
+import AgentChat from './AgentChat.jsx'
 import GymMascot from '../components/GymMascot.jsx'
 import Icon from '../components/Icon.jsx'
 import { Button } from '../components/ui.jsx'
@@ -14,6 +16,8 @@ export default function CoachEntry() {
   const user = useStore(s => s.user)
   const coachMode = useStore(s => s.coachLocal?.mode)
   const nav = useNavigate()
+  if (config?.agent?.enabled) return <AgentChat key={user?.id || 'guest'} />
+  if (FOCUS) return <div style={{ textAlign: 'center', padding: 48 }}><GymMascot size={160} animate={false} /><p>{t('The Coach agent is off. Start the API with AGENT_ENABLED=1.')}</p></div>
   if (coachAvailable(config, user, { demo: DEMO, mobile: MOBILE, coachMode })) return <CoachChat key={user?.id || 'guest'} />
   return <div className="buddy-welcome">
     <div className="buddy-welcome-hero">
