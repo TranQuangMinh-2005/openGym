@@ -177,5 +177,7 @@ test('the three hot-path state reads all go through readStateCached', () => {
   // thing, uncached.
   // (readStateStrict: a file that cannot be read is a 503, not an empty profile.)
   assert.match(handler('GET /api/data'), /readStateStrict\(user\.id\)/);
-  assert.match(handler('PUT /api/data'), /readStateStrict\(user\.id\)/);
+  // PUT writes through state-store.js (shared with the agent Coach's commit), which reads strict.
+  assert.match(handler('PUT /api/data'), /stateStore\.writeState\(user\.id,/);
+  assert.match(fs.readFileSync(path.join(API, 'state-store.js'), 'utf8'), /const cur = readStateStrict\(uid\)/);
 });

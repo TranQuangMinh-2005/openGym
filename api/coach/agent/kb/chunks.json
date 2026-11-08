@@ -1,0 +1,682 @@
+[
+  {
+    "id": "kb-001",
+    "topic": "weekly-volume",
+    "title_vi": "Khối lượng ban đầu",
+    "text_vi": "Bắt đầu với lượng hiệp vừa sức cho mỗi nhóm cơ trong tuần. Tăng dần khi hồi phục và kỹ thuật ổn định. Người đã tập thường dùng khoảng 10–20 hiệp nặng cho mỗi nhóm cơ mỗi tuần; người mới có thể bắt đầu ít hơn. Tính các hiệp chính có thử thách, không tính hiệp khởi động.",
+    "text_en": "Start with a manageable number of weekly sets per muscle. Increase gradually when recovery and technique are stable. Trained people often use about 10–20 hard sets per muscle each week; beginners can start with fewer. Count challenging working sets rather than warm-up sets.",
+    "source": {
+      "title": "Placeholder — curated source pending",
+      "org": "GymBuddy team"
+    },
+    "status": "placeholder",
+    "tags": [
+      "weekly-volume",
+      "beginner"
+    ],
+    "title_en": "Weekly volume"
+  },
+  {
+    "id": "kb-002",
+    "topic": "volume-response",
+    "title_vi": "Nhiều hơn không luôn tốt hơn",
+    "text_vi": "Nhiều hiệp hơn có thể hỗ trợ tăng cơ nhưng nhu cầu khác nhau giữa người tập. Không tăng khối lượng khi hiệu suất và hồi phục đang giảm. Thử chỉ thêm 1–2 hiệp mỗi tuần rồi theo dõi hiệu suất. Khối lượng cao hơn chỉ hữu ích khi bạn hồi phục được.",
+    "text_en": "More sets may support muscle growth but needs differ between people. Avoid adding volume when performance and recovery are declining. Try adding only 1–2 weekly sets at a time and monitor performance. More volume is useful only while you can recover from it.",
+    "source": {
+      "title": "Placeholder — curated source pending",
+      "org": "GymBuddy team"
+    },
+    "status": "placeholder",
+    "tags": [
+      "volume-response",
+      "beginner"
+    ],
+    "title_en": "Volume response"
+  },
+  {
+    "id": "kb-003",
+    "topic": "frequency",
+    "title_vi": "Tần suất tập",
+    "text_vi": "Chia khối lượng tuần qua nhiều buổi có thể giúp quản lý mệt mỏi. Chọn lịch có thể duy trì đều đặn. Tập mỗi nhóm cơ khoảng hai lần mỗi tuần là lịch khởi đầu thực tế. Phân bổ số hiệp tuần vừa sức giữa các buổi.",
+    "text_en": "Distributing weekly volume across sessions can help manage fatigue. Choose a schedule you can maintain consistently. Training each muscle about twice a week is a practical starting schedule. Keep weekly sets manageable across those sessions.",
+    "source": {
+      "title": "Placeholder — curated source pending",
+      "org": "GymBuddy team"
+    },
+    "status": "placeholder",
+    "tags": [
+      "frequency",
+      "beginner"
+    ],
+    "title_en": "Frequency"
+  },
+  {
+    "id": "kb-004",
+    "topic": "reps",
+    "title_vi": "Khoảng lặp",
+    "text_vi": "Dùng mức tạ cho phép các lần lặp có kiểm soát. Khoảng lặp vừa phải là điểm khởi đầu thực tế cho người mới. Khoảng 6–30 lần lặp có thể tăng cơ khi hiệp kết thúc gần ngưỡng thất bại. Tạ nặng phù hợp hơn để phát triển sức mạnh tối đa.",
+    "text_en": "Use a load that allows controlled repetitions. Moderate repetition ranges are a practical starting point for beginners. Roughly 6–30 repetitions can build muscle when sets finish close to failure. Heavier loads are more specific to improving maximal strength.",
+    "source": {
+      "title": "Placeholder — curated source pending",
+      "org": "GymBuddy team"
+    },
+    "status": "placeholder",
+    "tags": [
+      "reps",
+      "beginner"
+    ],
+    "title_en": "Reps"
+  },
+  {
+    "id": "kb-005",
+    "topic": "rir",
+    "title_vi": "Dự trữ lần lặp",
+    "text_vi": "Không cần cố đến thất bại ở mọi hiệp. Giữ vài lần lặp dự trữ giúp người mới học kỹ thuật và quản lý mệt mỏi. Mục tiêu thực tế là còn khả năng làm 0–3 lần lặp, người mới thường nên chọn mức nhẹ hơn. Kết thúc hiệp khi không còn kiểm soát được động tác.",
+    "text_en": "Every set need not reach failure. Leaving a few repetitions in reserve helps beginners learn technique and manage fatigue. A practical target is 0–3 repetitions in reserve, with beginners usually staying toward the easier end. Stop the set when you cannot maintain control.",
+    "source": {
+      "title": "Placeholder — curated source pending",
+      "org": "GymBuddy team"
+    },
+    "status": "placeholder",
+    "tags": [
+      "rir",
+      "beginner"
+    ],
+    "title_en": "Rir"
+  },
+  {
+    "id": "kb-006",
+    "topic": "rest",
+    "title_vi": "Nghỉ giữa hiệp",
+    "text_vi": "Nghỉ đủ để thực hiện hiệp tiếp theo với kỹ thuật ổn định. Bài nhiều khớp nặng thường cần nghỉ lâu hơn bài nhẹ. Nghỉ khoảng 1–3 phút giữa các hiệp chính. Nghỉ lâu hơn khi nhịp thở hoặc mệt mỏi cản trở việc kiểm soát động tác.",
+    "text_en": "Rest enough to perform the next set with stable technique. Heavy compound exercises generally need longer rest than lighter exercises. Rest about 1–3 minutes between working sets. Extend rest when breathing or fatigue prevents controlled repetitions.",
+    "source": {
+      "title": "Placeholder — curated source pending",
+      "org": "GymBuddy team"
+    },
+    "status": "placeholder",
+    "tags": [
+      "rest",
+      "beginner"
+    ],
+    "title_en": "Rest"
+  },
+  {
+    "id": "kb-007",
+    "topic": "overload",
+    "title_vi": "Tăng tiến",
+    "text_vi": "Tăng yêu cầu tập từ từ khi mức hiện tại trở nên dễ hơn. Không tăng tạ bằng cách hy sinh kiểm soát động tác. Tăng nhỏ khoảng 2–5% có thể đủ khi kiểm soát tốt mọi lần lặp dự kiến. Mỗi lần chỉ thay đổi một yếu tố tập luyện.",
+    "text_en": "Increase training demands gradually as the current workload becomes easier. Do not increase load by sacrificing movement control. A small increase of about 2–5% can be enough when all planned repetitions feel controlled. Change one training variable at a time.",
+    "source": {
+      "title": "Placeholder — curated source pending",
+      "org": "GymBuddy team"
+    },
+    "status": "placeholder",
+    "tags": [
+      "overload",
+      "beginner"
+    ],
+    "title_en": "Overload"
+  },
+  {
+    "id": "kb-008",
+    "topic": "double-progression",
+    "title_vi": "Tăng lặp rồi tăng tạ",
+    "text_vi": "Chọn một khoảng lặp phù hợp và ghi lại kết quả. Khi hoàn thành đầu trên với kỹ thuật ổn định, tăng tạ một bước nhỏ. Ví dụ, dùng khoảng 8–12 lần lặp và thêm mức tạ nhỏ nhất khi mọi hiệp đạt 12 lần có kiểm soát. Quay về gần 8 lần sau khi tăng tạ.",
+    "text_en": "Choose a suitable repetition range and record performance. When its upper end is completed with stable technique, increase the load by a small step. For example, use 8–12 repetitions and add the smallest available load after all sets reach 12 with control. Return toward 8 repetitions after increasing the load.",
+    "source": {
+      "title": "Placeholder — curated source pending",
+      "org": "GymBuddy team"
+    },
+    "status": "placeholder",
+    "tags": [
+      "double-progression",
+      "beginner"
+    ],
+    "title_en": "Double progression"
+  },
+  {
+    "id": "kb-009",
+    "topic": "deload",
+    "title_vi": "Tuần giảm tải",
+    "text_vi": "Khi mệt mỏi tích lũy, có thể tạm giảm khối lượng hoặc mức tạ. Đánh giá lại giấc ngủ và lịch tập trước khi tăng trở lại. Nếu hiệu suất giảm qua vài buổi, thử một tuần nhẹ hơn với ít hiệp nặng hơn. Tăng lại từ từ khi năng lượng và kỹ thuật hồi phục.",
+    "text_en": "When fatigue accumulates, temporarily reducing volume or load may help. Review sleep and scheduling before increasing training again. If performance drops over several sessions, try a lighter week with fewer hard sets. Resume gradually when energy and technique recover.",
+    "source": {
+      "title": "Placeholder — curated source pending",
+      "org": "GymBuddy team"
+    },
+    "status": "placeholder",
+    "tags": [
+      "deload",
+      "beginner"
+    ],
+    "title_en": "Deload"
+  },
+  {
+    "id": "kb-010",
+    "topic": "selection",
+    "title_vi": "Chọn bài",
+    "text_vi": "Chọn bài phù hợp khả năng và thiết bị hiện có. Ưu tiên động tác có thể thực hiện ổn định và theo dõi tiến bộ. Bắt đầu với 4–6 động tác bao phủ các nhóm cơ chính. Dùng biên độ thoải mái mà bạn kiểm soát được.",
+    "text_en": "Choose exercises suited to your ability and available equipment. Prioritize movements you can perform consistently and track over time. Start with 4–6 movements covering major muscle groups. Use a comfortable range of motion that you can control.",
+    "source": {
+      "title": "Placeholder — curated source pending",
+      "org": "GymBuddy team"
+    },
+    "status": "placeholder",
+    "tags": [
+      "selection",
+      "beginner"
+    ],
+    "title_en": "Selection"
+  },
+  {
+    "id": "kb-011",
+    "topic": "substitution",
+    "title_vi": "Thay bài theo mẫu động tác",
+    "text_vi": "Khi thay bài, cân nhắc nhóm cơ và mẫu động tác tương tự. Mức tạ của hai bài không nhất thiết tương đương. Thử bài thay thế với 1–2 hiệp nhẹ trước. Ghi mức tạ riêng thay vì sao chép mức tạ của bài cũ.",
+    "text_en": "When substituting exercises, consider similar muscles and movement patterns. Loads on different exercises are not necessarily equivalent. Test the replacement with 1–2 light practice sets first. Record its load separately rather than copying the old exercise weight.",
+    "source": {
+      "title": "Placeholder — curated source pending",
+      "org": "GymBuddy team"
+    },
+    "status": "placeholder",
+    "tags": [
+      "substitution",
+      "beginner"
+    ],
+    "title_en": "Substitution"
+  },
+  {
+    "id": "kb-012",
+    "topic": "warmup",
+    "title_vi": "Khởi động",
+    "text_vi": "Bắt đầu bằng vận động nhẹ và các hiệp làm quen tăng dần tải. Khởi động không nên làm kiệt sức trước hiệp chính. Thử vận động nhẹ 5–10 phút rồi tập các hiệp nhẹ của động tác dự kiến. Tăng tạ từng bước nhỏ, không vội vàng.",
+    "text_en": "Begin with light activity and progressively loaded practice sets. Warm-ups should not exhaust you before working sets. Try 5–10 minutes of easy activity followed by lighter sets of the planned movement. Increase load in small steps without rushing.",
+    "source": {
+      "title": "Placeholder — curated source pending",
+      "org": "GymBuddy team"
+    },
+    "status": "placeholder",
+    "tags": [
+      "warmup",
+      "beginner"
+    ],
+    "title_en": "Warmup"
+  },
+  {
+    "id": "kb-013",
+    "topic": "duration",
+    "title_vi": "Thời lượng buổi tập",
+    "text_vi": "Thời lượng phù hợp phụ thuộc số bài và thời gian nghỉ. Một buổi ngắn thực hiện đều đặn có thể thực tế hơn lịch quá dài. Buổi tập 30–60 phút có thể là khung lập kế hoạch hữu ích, không phải yêu cầu. Giữ thời gian nghỉ thay vì vội để đạt mục tiêu thời lượng.",
+    "text_en": "Suitable session duration depends on exercise count and rest time. A short session performed consistently may be more practical than an overly long schedule. A 30–60 minute session can be a useful planning window, not a requirement. Preserve rest periods instead of rushing to meet a time target.",
+    "source": {
+      "title": "Placeholder — curated source pending",
+      "org": "GymBuddy team"
+    },
+    "status": "placeholder",
+    "tags": [
+      "duration",
+      "beginner"
+    ],
+    "title_en": "Duration"
+  },
+  {
+    "id": "kb-014",
+    "topic": "full-body",
+    "title_vi": "Toàn thân cho người mới",
+    "text_vi": "Lịch toàn thân giúp luyện các mẫu động tác nhiều lần trong tuần. Để thời gian hồi phục phù hợp giữa các buổi. Hai hoặc ba buổi toàn thân mỗi tuần có thể phù hợp với người mới. Bắt đầu với 1–3 hiệp chính mỗi động tác rồi điều chỉnh theo hồi phục.",
+    "text_en": "Full-body schedules allow repeated practice of movement patterns during the week. Allow suitable recovery between sessions. Two or three full-body sessions per week can suit beginners. Start with 1–3 working sets per movement and adjust to recovery.",
+    "source": {
+      "title": "Placeholder — curated source pending",
+      "org": "GymBuddy team"
+    },
+    "status": "placeholder",
+    "tags": [
+      "full-body",
+      "beginner"
+    ],
+    "title_en": "Full body"
+  },
+  {
+    "id": "kb-015",
+    "topic": "ppl",
+    "title_vi": "Lịch đẩy kéo chân",
+    "text_vi": "Lịch đẩy kéo chân chia bài theo nhóm động tác. Chỉ chọn khi số ngày tập phù hợp lịch sống và hồi phục. Vòng ba buổi tập mỗi nhóm một lần mỗi vòng; lặp lại vòng cần nhiều ngày tập hơn trong tuần. Chọn ít buổi hơn nếu khó duy trì hoặc hồi phục kém.",
+    "text_en": "Push-pull-legs schedules divide exercises by movement groups. Choose this split when training days fit your life and recovery. A three-day rotation trains each group once per rotation; repeating it needs more weekly training days. Choose fewer sessions if attendance or recovery suffers.",
+    "source": {
+      "title": "Placeholder — curated source pending",
+      "org": "GymBuddy team"
+    },
+    "status": "placeholder",
+    "tags": [
+      "ppl",
+      "beginner"
+    ],
+    "title_en": "Ppl"
+  },
+  {
+    "id": "kb-016",
+    "topic": "soreness",
+    "title_vi": "Đau cơ sau tập",
+    "text_vi": "Đau cơ muộn có thể xuất hiện sau buổi tập mới. Giảm yêu cầu buổi tiếp theo nếu đau cơ làm thay đổi cách vận động. Căng ê cơ lan tỏa sau vận động mới khác với đau nhói trong một lần lặp. Dừng nếu khó chịu làm thay đổi động tác và hỏi chuyên gia y tế nếu kéo dài hoặc nặng hơn.",
+    "text_en": "Delayed muscle soreness can follow unfamiliar training. Reduce the next session’s demands if soreness changes how you move. Diffuse muscle tenderness after unfamiliar effort differs from sharp pain during a repetition. Stop if discomfort changes your movement and seek professional advice if it persists or worsens.",
+    "source": {
+      "title": "Placeholder — curated source pending",
+      "org": "GymBuddy team"
+    },
+    "status": "placeholder",
+    "tags": [
+      "soreness",
+      "beginner"
+    ],
+    "title_en": "Soreness"
+  },
+  {
+    "id": "kb-017",
+    "topic": "pain",
+    "title_vi": "Đau vai và đau bất thường",
+    "text_vi": "Đau vai sắc nhọn hoặc đau tăng khi tập là lý do dừng động tác gây đau. Tìm chuyên gia y tế khi đau kéo dài hoặc kèm tê, sưng hay mất chức năng. Không thử lặp lại động tác gây đau hoặc cố chịu triệu chứng để hoàn thành hiệp. Tìm đánh giá y tế sớm khi đau dữ dội, sưng rõ, tê hoặc mất chức năng.",
+    "text_en": "Sharp shoulder pain or pain that increases during exercise is a reason to stop the painful movement. Seek a healthcare professional for persistent pain or numbness, swelling or loss of function. Do not test painful movements repeatedly or push through symptoms to finish a set. Seek prompt professional assessment for severe pain, marked swelling, numbness or loss of function.",
+    "source": {
+      "title": "Placeholder — curated source pending",
+      "org": "GymBuddy team"
+    },
+    "status": "placeholder",
+    "tags": [
+      "pain",
+      "beginner"
+    ],
+    "title_en": "Pain"
+  },
+  {
+    "id": "kb-018",
+    "topic": "fat-loss",
+    "title_vi": "Giữ cơ khi giảm mỡ",
+    "text_vi": "Duy trì tập sức mạnh trong giai đoạn giảm mỡ nếu hồi phục cho phép. Điều chỉnh khối lượng khi năng lượng và hiệu suất giảm. Duy trì ít nhất 2 buổi sức mạnh mỗi tuần nếu chịu được. Giảm hiệp nặng khi hồi phục giảm thay vì ép khối lượng cũ.",
+    "text_en": "Maintain resistance training during fat loss when recovery allows. Adjust volume when energy and performance decline. Keep 2 or more weekly strength sessions if tolerated. Reduce hard sets when recovery declines rather than forcing previous workloads.",
+    "source": {
+      "title": "Placeholder — curated source pending",
+      "org": "GymBuddy team"
+    },
+    "status": "placeholder",
+    "tags": [
+      "fat-loss",
+      "beginner"
+    ],
+    "title_en": "Fat loss"
+  },
+  {
+    "id": "kb-019",
+    "topic": "squat",
+    "title_vi": "Kỹ thuật squat và hinge",
+    "text_vi": "Với squat, giữ bàn chân ổn định và gối di chuyển có kiểm soát. Với hinge, đưa hông ra sau và dùng phạm vi vận động có thể kiểm soát. Dùng tạ nhẹ tập thử 8–12 lần trước khi thêm tạ. Giữ áp lực trên bàn chân và không ép độ sâu khi đau.",
+    "text_en": "For squats, keep the feet stable and move the knees under control. For hinges, move the hips back through a range you can control. Use a light load for 8–12 practice repetitions before adding weight. Keep pressure across the foot and avoid forcing depth through pain.",
+    "source": {
+      "title": "Placeholder — curated source pending",
+      "org": "GymBuddy team"
+    },
+    "status": "placeholder",
+    "tags": [
+      "squat",
+      "beginner"
+    ],
+    "title_en": "Squat"
+  },
+  {
+    "id": "kb-020",
+    "topic": "push-pull",
+    "title_vi": "Kỹ thuật đẩy và kéo",
+    "text_vi": "Với bài đẩy, chọn vị trí tay và phạm vi vận động thoải mái. Với bài kéo, tránh giật tạ và kiểm soát cả pha hạ. Thử 8–12 lần lặp có kiểm soát với tạ nhẹ khi học động tác. Giữ thân ổn định và dừng trước khi cần lấy đà.",
+    "text_en": "For pushing exercises, choose a comfortable hand position and range of motion. For pulling exercises, avoid jerking the load and control the lowering phase. Try 8–12 controlled repetitions with a light load while learning the movement. Keep the torso stable and stop before you need momentum.",
+    "source": {
+      "title": "Placeholder — curated source pending",
+      "org": "GymBuddy team"
+    },
+    "status": "placeholder",
+    "tags": [
+      "push-pull",
+      "beginner"
+    ],
+    "title_en": "Push pull"
+  },
+  {
+    "id": "kb-021",
+    "topic": "weekly-volume",
+    "title_vi": "Khối lượng ban đầu — áp dụng",
+    "text_vi": "Bắt đầu với lượng hiệp vừa sức cho mỗi nhóm cơ trong tuần. Tăng dần khi hồi phục và kỹ thuật ổn định. Người đã tập thường dùng khoảng 10–20 hiệp nặng cho mỗi nhóm cơ mỗi tuần; người mới có thể bắt đầu ít hơn. Tính các hiệp chính có thử thách, không tính hiệp khởi động.",
+    "text_en": "Start with a manageable number of weekly sets per muscle. Increase gradually when recovery and technique are stable. Trained people often use about 10–20 hard sets per muscle each week; beginners can start with fewer. Count challenging working sets rather than warm-up sets.",
+    "source": {
+      "title": "Placeholder — curated source pending",
+      "org": "GymBuddy team"
+    },
+    "status": "placeholder",
+    "tags": [
+      "weekly-volume",
+      "intermediate"
+    ],
+    "title_en": "Weekly volume"
+  },
+  {
+    "id": "kb-022",
+    "topic": "volume-response",
+    "title_vi": "Nhiều hơn không luôn tốt hơn — áp dụng",
+    "text_vi": "Nhiều hiệp hơn có thể hỗ trợ tăng cơ nhưng nhu cầu khác nhau giữa người tập. Không tăng khối lượng khi hiệu suất và hồi phục đang giảm. Thử chỉ thêm 1–2 hiệp mỗi tuần rồi theo dõi hiệu suất. Khối lượng cao hơn chỉ hữu ích khi bạn hồi phục được.",
+    "text_en": "More sets may support muscle growth but needs differ between people. Avoid adding volume when performance and recovery are declining. Try adding only 1–2 weekly sets at a time and monitor performance. More volume is useful only while you can recover from it.",
+    "source": {
+      "title": "Placeholder — curated source pending",
+      "org": "GymBuddy team"
+    },
+    "status": "placeholder",
+    "tags": [
+      "volume-response",
+      "intermediate"
+    ],
+    "title_en": "Volume response"
+  },
+  {
+    "id": "kb-023",
+    "topic": "frequency",
+    "title_vi": "Tần suất tập — áp dụng",
+    "text_vi": "Chia khối lượng tuần qua nhiều buổi có thể giúp quản lý mệt mỏi. Chọn lịch có thể duy trì đều đặn. Tập mỗi nhóm cơ khoảng hai lần mỗi tuần là lịch khởi đầu thực tế. Phân bổ số hiệp tuần vừa sức giữa các buổi.",
+    "text_en": "Distributing weekly volume across sessions can help manage fatigue. Choose a schedule you can maintain consistently. Training each muscle about twice a week is a practical starting schedule. Keep weekly sets manageable across those sessions.",
+    "source": {
+      "title": "Placeholder — curated source pending",
+      "org": "GymBuddy team"
+    },
+    "status": "placeholder",
+    "tags": [
+      "frequency",
+      "intermediate"
+    ],
+    "title_en": "Frequency"
+  },
+  {
+    "id": "kb-024",
+    "topic": "reps",
+    "title_vi": "Khoảng lặp — áp dụng",
+    "text_vi": "Dùng mức tạ cho phép các lần lặp có kiểm soát. Khoảng lặp vừa phải là điểm khởi đầu thực tế cho người mới. Khoảng 6–30 lần lặp có thể tăng cơ khi hiệp kết thúc gần ngưỡng thất bại. Tạ nặng phù hợp hơn để phát triển sức mạnh tối đa.",
+    "text_en": "Use a load that allows controlled repetitions. Moderate repetition ranges are a practical starting point for beginners. Roughly 6–30 repetitions can build muscle when sets finish close to failure. Heavier loads are more specific to improving maximal strength.",
+    "source": {
+      "title": "Placeholder — curated source pending",
+      "org": "GymBuddy team"
+    },
+    "status": "placeholder",
+    "tags": [
+      "reps",
+      "intermediate"
+    ],
+    "title_en": "Reps"
+  },
+  {
+    "id": "kb-025",
+    "topic": "rir",
+    "title_vi": "Dự trữ lần lặp — áp dụng",
+    "text_vi": "Không cần cố đến thất bại ở mọi hiệp. Giữ vài lần lặp dự trữ giúp người mới học kỹ thuật và quản lý mệt mỏi. Mục tiêu thực tế là còn khả năng làm 0–3 lần lặp, người mới thường nên chọn mức nhẹ hơn. Kết thúc hiệp khi không còn kiểm soát được động tác.",
+    "text_en": "Every set need not reach failure. Leaving a few repetitions in reserve helps beginners learn technique and manage fatigue. A practical target is 0–3 repetitions in reserve, with beginners usually staying toward the easier end. Stop the set when you cannot maintain control.",
+    "source": {
+      "title": "Placeholder — curated source pending",
+      "org": "GymBuddy team"
+    },
+    "status": "placeholder",
+    "tags": [
+      "rir",
+      "intermediate"
+    ],
+    "title_en": "Rir"
+  },
+  {
+    "id": "kb-026",
+    "topic": "rest",
+    "title_vi": "Nghỉ giữa hiệp — áp dụng",
+    "text_vi": "Nghỉ đủ để thực hiện hiệp tiếp theo với kỹ thuật ổn định. Bài nhiều khớp nặng thường cần nghỉ lâu hơn bài nhẹ. Nghỉ khoảng 1–3 phút giữa các hiệp chính. Nghỉ lâu hơn khi nhịp thở hoặc mệt mỏi cản trở việc kiểm soát động tác.",
+    "text_en": "Rest enough to perform the next set with stable technique. Heavy compound exercises generally need longer rest than lighter exercises. Rest about 1–3 minutes between working sets. Extend rest when breathing or fatigue prevents controlled repetitions.",
+    "source": {
+      "title": "Placeholder — curated source pending",
+      "org": "GymBuddy team"
+    },
+    "status": "placeholder",
+    "tags": [
+      "rest",
+      "intermediate"
+    ],
+    "title_en": "Rest"
+  },
+  {
+    "id": "kb-027",
+    "topic": "overload",
+    "title_vi": "Tăng tiến — áp dụng",
+    "text_vi": "Tăng yêu cầu tập từ từ khi mức hiện tại trở nên dễ hơn. Không tăng tạ bằng cách hy sinh kiểm soát động tác. Tăng nhỏ khoảng 2–5% có thể đủ khi kiểm soát tốt mọi lần lặp dự kiến. Mỗi lần chỉ thay đổi một yếu tố tập luyện.",
+    "text_en": "Increase training demands gradually as the current workload becomes easier. Do not increase load by sacrificing movement control. A small increase of about 2–5% can be enough when all planned repetitions feel controlled. Change one training variable at a time.",
+    "source": {
+      "title": "Placeholder — curated source pending",
+      "org": "GymBuddy team"
+    },
+    "status": "placeholder",
+    "tags": [
+      "overload",
+      "intermediate"
+    ],
+    "title_en": "Overload"
+  },
+  {
+    "id": "kb-028",
+    "topic": "double-progression",
+    "title_vi": "Tăng lặp rồi tăng tạ — áp dụng",
+    "text_vi": "Chọn một khoảng lặp phù hợp và ghi lại kết quả. Khi hoàn thành đầu trên với kỹ thuật ổn định, tăng tạ một bước nhỏ. Ví dụ, dùng khoảng 8–12 lần lặp và thêm mức tạ nhỏ nhất khi mọi hiệp đạt 12 lần có kiểm soát. Quay về gần 8 lần sau khi tăng tạ.",
+    "text_en": "Choose a suitable repetition range and record performance. When its upper end is completed with stable technique, increase the load by a small step. For example, use 8–12 repetitions and add the smallest available load after all sets reach 12 with control. Return toward 8 repetitions after increasing the load.",
+    "source": {
+      "title": "Placeholder — curated source pending",
+      "org": "GymBuddy team"
+    },
+    "status": "placeholder",
+    "tags": [
+      "double-progression",
+      "intermediate"
+    ],
+    "title_en": "Double progression"
+  },
+  {
+    "id": "kb-029",
+    "topic": "deload",
+    "title_vi": "Tuần giảm tải — áp dụng",
+    "text_vi": "Khi mệt mỏi tích lũy, có thể tạm giảm khối lượng hoặc mức tạ. Đánh giá lại giấc ngủ và lịch tập trước khi tăng trở lại. Nếu hiệu suất giảm qua vài buổi, thử một tuần nhẹ hơn với ít hiệp nặng hơn. Tăng lại từ từ khi năng lượng và kỹ thuật hồi phục.",
+    "text_en": "When fatigue accumulates, temporarily reducing volume or load may help. Review sleep and scheduling before increasing training again. If performance drops over several sessions, try a lighter week with fewer hard sets. Resume gradually when energy and technique recover.",
+    "source": {
+      "title": "Placeholder — curated source pending",
+      "org": "GymBuddy team"
+    },
+    "status": "placeholder",
+    "tags": [
+      "deload",
+      "intermediate"
+    ],
+    "title_en": "Deload"
+  },
+  {
+    "id": "kb-030",
+    "topic": "selection",
+    "title_vi": "Chọn bài — áp dụng",
+    "text_vi": "Chọn bài phù hợp khả năng và thiết bị hiện có. Ưu tiên động tác có thể thực hiện ổn định và theo dõi tiến bộ. Bắt đầu với 4–6 động tác bao phủ các nhóm cơ chính. Dùng biên độ thoải mái mà bạn kiểm soát được.",
+    "text_en": "Choose exercises suited to your ability and available equipment. Prioritize movements you can perform consistently and track over time. Start with 4–6 movements covering major muscle groups. Use a comfortable range of motion that you can control.",
+    "source": {
+      "title": "Placeholder — curated source pending",
+      "org": "GymBuddy team"
+    },
+    "status": "placeholder",
+    "tags": [
+      "selection",
+      "intermediate"
+    ],
+    "title_en": "Selection"
+  },
+  {
+    "id": "kb-031",
+    "topic": "substitution",
+    "title_vi": "Thay bài theo mẫu động tác — áp dụng",
+    "text_vi": "Khi thay bài, cân nhắc nhóm cơ và mẫu động tác tương tự. Mức tạ của hai bài không nhất thiết tương đương. Thử bài thay thế với 1–2 hiệp nhẹ trước. Ghi mức tạ riêng thay vì sao chép mức tạ của bài cũ.",
+    "text_en": "When substituting exercises, consider similar muscles and movement patterns. Loads on different exercises are not necessarily equivalent. Test the replacement with 1–2 light practice sets first. Record its load separately rather than copying the old exercise weight.",
+    "source": {
+      "title": "Placeholder — curated source pending",
+      "org": "GymBuddy team"
+    },
+    "status": "placeholder",
+    "tags": [
+      "substitution",
+      "intermediate"
+    ],
+    "title_en": "Substitution"
+  },
+  {
+    "id": "kb-032",
+    "topic": "warmup",
+    "title_vi": "Khởi động — áp dụng",
+    "text_vi": "Bắt đầu bằng vận động nhẹ và các hiệp làm quen tăng dần tải. Khởi động không nên làm kiệt sức trước hiệp chính. Thử vận động nhẹ 5–10 phút rồi tập các hiệp nhẹ của động tác dự kiến. Tăng tạ từng bước nhỏ, không vội vàng.",
+    "text_en": "Begin with light activity and progressively loaded practice sets. Warm-ups should not exhaust you before working sets. Try 5–10 minutes of easy activity followed by lighter sets of the planned movement. Increase load in small steps without rushing.",
+    "source": {
+      "title": "Placeholder — curated source pending",
+      "org": "GymBuddy team"
+    },
+    "status": "placeholder",
+    "tags": [
+      "warmup",
+      "intermediate"
+    ],
+    "title_en": "Warmup"
+  },
+  {
+    "id": "kb-033",
+    "topic": "duration",
+    "title_vi": "Thời lượng buổi tập — áp dụng",
+    "text_vi": "Thời lượng phù hợp phụ thuộc số bài và thời gian nghỉ. Một buổi ngắn thực hiện đều đặn có thể thực tế hơn lịch quá dài. Buổi tập 30–60 phút có thể là khung lập kế hoạch hữu ích, không phải yêu cầu. Giữ thời gian nghỉ thay vì vội để đạt mục tiêu thời lượng.",
+    "text_en": "Suitable session duration depends on exercise count and rest time. A short session performed consistently may be more practical than an overly long schedule. A 30–60 minute session can be a useful planning window, not a requirement. Preserve rest periods instead of rushing to meet a time target.",
+    "source": {
+      "title": "Placeholder — curated source pending",
+      "org": "GymBuddy team"
+    },
+    "status": "placeholder",
+    "tags": [
+      "duration",
+      "intermediate"
+    ],
+    "title_en": "Duration"
+  },
+  {
+    "id": "kb-034",
+    "topic": "full-body",
+    "title_vi": "Toàn thân cho người mới — áp dụng",
+    "text_vi": "Lịch toàn thân giúp luyện các mẫu động tác nhiều lần trong tuần. Để thời gian hồi phục phù hợp giữa các buổi. Hai hoặc ba buổi toàn thân mỗi tuần có thể phù hợp với người mới. Bắt đầu với 1–3 hiệp chính mỗi động tác rồi điều chỉnh theo hồi phục.",
+    "text_en": "Full-body schedules allow repeated practice of movement patterns during the week. Allow suitable recovery between sessions. Two or three full-body sessions per week can suit beginners. Start with 1–3 working sets per movement and adjust to recovery.",
+    "source": {
+      "title": "Placeholder — curated source pending",
+      "org": "GymBuddy team"
+    },
+    "status": "placeholder",
+    "tags": [
+      "full-body",
+      "intermediate"
+    ],
+    "title_en": "Full body"
+  },
+  {
+    "id": "kb-035",
+    "topic": "ppl",
+    "title_vi": "Lịch đẩy kéo chân — áp dụng",
+    "text_vi": "Lịch đẩy kéo chân chia bài theo nhóm động tác. Chỉ chọn khi số ngày tập phù hợp lịch sống và hồi phục. Vòng ba buổi tập mỗi nhóm một lần mỗi vòng; lặp lại vòng cần nhiều ngày tập hơn trong tuần. Chọn ít buổi hơn nếu khó duy trì hoặc hồi phục kém.",
+    "text_en": "Push-pull-legs schedules divide exercises by movement groups. Choose this split when training days fit your life and recovery. A three-day rotation trains each group once per rotation; repeating it needs more weekly training days. Choose fewer sessions if attendance or recovery suffers.",
+    "source": {
+      "title": "Placeholder — curated source pending",
+      "org": "GymBuddy team"
+    },
+    "status": "placeholder",
+    "tags": [
+      "ppl",
+      "intermediate"
+    ],
+    "title_en": "Ppl"
+  },
+  {
+    "id": "kb-036",
+    "topic": "soreness",
+    "title_vi": "Đau cơ sau tập — áp dụng",
+    "text_vi": "Đau cơ muộn có thể xuất hiện sau buổi tập mới. Giảm yêu cầu buổi tiếp theo nếu đau cơ làm thay đổi cách vận động. Căng ê cơ lan tỏa sau vận động mới khác với đau nhói trong một lần lặp. Dừng nếu khó chịu làm thay đổi động tác và hỏi chuyên gia y tế nếu kéo dài hoặc nặng hơn.",
+    "text_en": "Delayed muscle soreness can follow unfamiliar training. Reduce the next session’s demands if soreness changes how you move. Diffuse muscle tenderness after unfamiliar effort differs from sharp pain during a repetition. Stop if discomfort changes your movement and seek professional advice if it persists or worsens.",
+    "source": {
+      "title": "Placeholder — curated source pending",
+      "org": "GymBuddy team"
+    },
+    "status": "placeholder",
+    "tags": [
+      "soreness",
+      "intermediate"
+    ],
+    "title_en": "Soreness"
+  },
+  {
+    "id": "kb-037",
+    "topic": "pain",
+    "title_vi": "Đau vai và đau bất thường — áp dụng",
+    "text_vi": "Đau vai sắc nhọn hoặc đau tăng khi tập là lý do dừng động tác gây đau. Tìm chuyên gia y tế khi đau kéo dài hoặc kèm tê, sưng hay mất chức năng. Không thử lặp lại động tác gây đau hoặc cố chịu triệu chứng để hoàn thành hiệp. Tìm đánh giá y tế sớm khi đau dữ dội, sưng rõ, tê hoặc mất chức năng.",
+    "text_en": "Sharp shoulder pain or pain that increases during exercise is a reason to stop the painful movement. Seek a healthcare professional for persistent pain or numbness, swelling or loss of function. Do not test painful movements repeatedly or push through symptoms to finish a set. Seek prompt professional assessment for severe pain, marked swelling, numbness or loss of function.",
+    "source": {
+      "title": "Placeholder — curated source pending",
+      "org": "GymBuddy team"
+    },
+    "status": "placeholder",
+    "tags": [
+      "pain",
+      "intermediate"
+    ],
+    "title_en": "Pain"
+  },
+  {
+    "id": "kb-038",
+    "topic": "fat-loss",
+    "title_vi": "Giữ cơ khi giảm mỡ — áp dụng",
+    "text_vi": "Duy trì tập sức mạnh trong giai đoạn giảm mỡ nếu hồi phục cho phép. Điều chỉnh khối lượng khi năng lượng và hiệu suất giảm. Duy trì ít nhất 2 buổi sức mạnh mỗi tuần nếu chịu được. Giảm hiệp nặng khi hồi phục giảm thay vì ép khối lượng cũ.",
+    "text_en": "Maintain resistance training during fat loss when recovery allows. Adjust volume when energy and performance decline. Keep 2 or more weekly strength sessions if tolerated. Reduce hard sets when recovery declines rather than forcing previous workloads.",
+    "source": {
+      "title": "Placeholder — curated source pending",
+      "org": "GymBuddy team"
+    },
+    "status": "placeholder",
+    "tags": [
+      "fat-loss",
+      "intermediate"
+    ],
+    "title_en": "Fat loss"
+  },
+  {
+    "id": "kb-039",
+    "topic": "squat",
+    "title_vi": "Kỹ thuật squat và hinge — áp dụng",
+    "text_vi": "Với squat, giữ bàn chân ổn định và gối di chuyển có kiểm soát. Với hinge, đưa hông ra sau và dùng phạm vi vận động có thể kiểm soát. Dùng tạ nhẹ tập thử 8–12 lần trước khi thêm tạ. Giữ áp lực trên bàn chân và không ép độ sâu khi đau.",
+    "text_en": "For squats, keep the feet stable and move the knees under control. For hinges, move the hips back through a range you can control. Use a light load for 8–12 practice repetitions before adding weight. Keep pressure across the foot and avoid forcing depth through pain.",
+    "source": {
+      "title": "Placeholder — curated source pending",
+      "org": "GymBuddy team"
+    },
+    "status": "placeholder",
+    "tags": [
+      "squat",
+      "intermediate"
+    ],
+    "title_en": "Squat"
+  },
+  {
+    "id": "kb-040",
+    "topic": "push-pull",
+    "title_vi": "Kỹ thuật đẩy và kéo — áp dụng",
+    "text_vi": "Với bài đẩy, chọn vị trí tay và phạm vi vận động thoải mái. Với bài kéo, tránh giật tạ và kiểm soát cả pha hạ. Thử 8–12 lần lặp có kiểm soát với tạ nhẹ khi học động tác. Giữ thân ổn định và dừng trước khi cần lấy đà.",
+    "text_en": "For pushing exercises, choose a comfortable hand position and range of motion. For pulling exercises, avoid jerking the load and control the lowering phase. Try 8–12 controlled repetitions with a light load while learning the movement. Keep the torso stable and stop before you need momentum.",
+    "source": {
+      "title": "Placeholder — curated source pending",
+      "org": "GymBuddy team"
+    },
+    "status": "placeholder",
+    "tags": [
+      "push-pull",
+      "intermediate"
+    ],
+    "title_en": "Push pull"
+  }
+]
