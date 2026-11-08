@@ -1,4 +1,4 @@
-# Kế hoạch refactor openGym cho desktop web
+# Kế hoạch refactor GymBuddy cho desktop web
 
 Ngày: 16/10/2026. Trạng thái: kế hoạch, chưa triển khai giao diện mới.
 
@@ -49,7 +49,7 @@ Desktop rộng:
 
 ```text
 ┌──────────────────┬────────────────────────────────────┬────────────────────┐
-│ openGym          │ Tiêu đề trang / trạng thái lưu     │ Gym Buddy          │
+│ GymBuddy          │ Tiêu đề trang / trạng thái lưu     │ Gym Buddy          │
 │                  ├────────────────────────────────────┤                    │
 │ Tổng quan        │ Lịch tập / chi tiết buổi           │ Mascot nhỏ         │
 │ Chương trình     │                                    │ Ngữ cảnh đang xem  │

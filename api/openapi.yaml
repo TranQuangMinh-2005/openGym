@@ -1,15 +1,14 @@
-# openGym HTTP API: hand-written OpenAPI 3.1 spec.
+# GymBuddy HTTP API: hand-written OpenAPI 3.1 spec.
 # Source of truth: api/server.js (a single framework-free Node file). Every route the
 # server registers is documented here; if you add a route there, add it here too.
-# Browsable version: https://opengym.ch/api.html
 openapi: 3.1.0
 
 info:
-  title: openGym API
+  title: GymBuddy API
   version: 1.4.1
-  summary: Passkey (WebAuthn) auth + per-user state storage for openGym
+  summary: Passkey (WebAuthn) auth + per-user state storage for GymBuddy
   description: |
-    The backend of [openGym](https://opengym.ch), a free, open-source
+    The backend of GymBuddy, a free, open-source
     gym & body-weight tracker. A plain Node server, no framework, JSON-file storage,
     HMAC-signed session cookies.
 
@@ -115,13 +114,12 @@ info:
     name: AGPL-3.0-or-later
     identifier: AGPL-3.0-or-later
   contact:
-    name: openGym
-    url: https://gitlab.com/DuarteSantos8/opengym
+    name: GymBuddy
 
 servers:
   - url: /
-    description: Same origin as the openGym web app (the normal deployment)
-  - url: https://opengym.example.com
+    description: Same origin as the GymBuddy web app (the normal deployment)
+  - url: https://gymbuddy.example.com
     description: Your self-hosted instance
 
 tags:
@@ -163,6 +161,241 @@ security:
   - bearerAuth: []
 
 paths:
+  /api/coach/agent/messages:
+    post:
+      tags: [coach]
+      summary: Agent messages
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [text]
+              properties:
+                threadId: { type: string, minLength: 1, maxLength: 200 }
+                text: { type: string, minLength: 1, maxLength: 2000 }
+                lang: { type: string, enum: [en, vi] }
+      responses:
+        '202':
+          description: Accepted asynchronous run; poll thread for status
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/AgentAccepted' }
+        '400':
+          description: Invalid request, unauthorized, missing thread, busy or agent off
+          content:
+            application/json:
+              schema: { type: object, additionalProperties: true }
+        '401':
+          description: Invalid request, unauthorized, missing thread, busy or agent off
+          content:
+            application/json:
+              schema: { type: object, additionalProperties: true }
+        '403':
+          description: Invalid request, unauthorized, missing thread, busy or agent off
+          content:
+            application/json:
+              schema: { type: object, additionalProperties: true }
+        '404':
+          description: Invalid request, unauthorized, missing thread, busy or agent off
+          content:
+            application/json:
+              schema: { type: object, additionalProperties: true }
+        '409':
+          description: Invalid request, unauthorized, missing thread, busy or agent off
+          content:
+            application/json:
+              schema: { type: object, additionalProperties: true }
+        '503':
+          description: Invalid request, unauthorized, missing thread, busy or agent off
+          content:
+            application/json:
+              schema: { type: object, additionalProperties: true }
+  /api/coach/agent/thread:
+    get:
+      tags: [coach]
+      summary: Agent thread
+      parameters:
+        - in: query
+          name: id
+          required: true
+          schema: { type: string, minLength: 1, maxLength: 200 }
+      responses:
+        '200':
+          description: Agent response
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/AgentThread' }
+        '400':
+          description: Invalid request, unauthorized, missing thread, busy or agent off
+          content:
+            application/json:
+              schema: { type: object, additionalProperties: true }
+        '401':
+          description: Invalid request, unauthorized, missing thread, busy or agent off
+          content:
+            application/json:
+              schema: { type: object, additionalProperties: true }
+        '403':
+          description: Invalid request, unauthorized, missing thread, busy or agent off
+          content:
+            application/json:
+              schema: { type: object, additionalProperties: true }
+        '404':
+          description: Invalid request, unauthorized, missing thread, busy or agent off
+          content:
+            application/json:
+              schema: { type: object, additionalProperties: true }
+        '409':
+          description: Invalid request, unauthorized, missing thread, busy or agent off
+          content:
+            application/json:
+              schema: { type: object, additionalProperties: true }
+        '503':
+          description: Invalid request, unauthorized, missing thread, busy or agent off
+          content:
+            application/json:
+              schema: { type: object, additionalProperties: true }
+  /api/coach/agent/resume:
+    post:
+      tags: [coach]
+      summary: Agent resume
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [threadId, decisions]
+              properties:
+                threadId: { type: string, minLength: 1, maxLength: 200 }
+                decisions: { type: array, minItems: 1, items: { type: object, required: [draftId, decision], properties: { draftId: { type: string, minLength: 1, maxLength: 200 }, decision: { type: string, enum: [approve, reject] }, acceptedChangeIds: { type: array, items: { type: string, minLength: 1, maxLength: 200 } } } } }
+      responses:
+        '202':
+          description: Accepted asynchronous run; poll thread for status
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/AgentAccepted' }
+        '400':
+          description: Invalid request, unauthorized, missing thread, busy or agent off
+          content:
+            application/json:
+              schema: { type: object, additionalProperties: true }
+        '401':
+          description: Invalid request, unauthorized, missing thread, busy or agent off
+          content:
+            application/json:
+              schema: { type: object, additionalProperties: true }
+        '403':
+          description: Invalid request, unauthorized, missing thread, busy or agent off
+          content:
+            application/json:
+              schema: { type: object, additionalProperties: true }
+        '404':
+          description: Invalid request, unauthorized, missing thread, busy or agent off
+          content:
+            application/json:
+              schema: { type: object, additionalProperties: true }
+        '409':
+          description: Invalid request, unauthorized, missing thread, busy or agent off
+          content:
+            application/json:
+              schema: { type: object, additionalProperties: true }
+        '503':
+          description: Invalid request, unauthorized, missing thread, busy or agent off
+          content:
+            application/json:
+              schema: { type: object, additionalProperties: true }
+  /api/coach/agent/cancel:
+    post:
+      tags: [coach]
+      summary: Agent cancel
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [threadId]
+              properties:
+                threadId: { type: string, minLength: 1, maxLength: 200 }
+      responses:
+        '200':
+          description: Agent response
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/AgentCancelled' }
+        '400':
+          description: Invalid request, unauthorized, missing thread, busy or agent off
+          content:
+            application/json:
+              schema: { type: object, additionalProperties: true }
+        '401':
+          description: Invalid request, unauthorized, missing thread, busy or agent off
+          content:
+            application/json:
+              schema: { type: object, additionalProperties: true }
+        '403':
+          description: Invalid request, unauthorized, missing thread, busy or agent off
+          content:
+            application/json:
+              schema: { type: object, additionalProperties: true }
+        '404':
+          description: Invalid request, unauthorized, missing thread, busy or agent off
+          content:
+            application/json:
+              schema: { type: object, additionalProperties: true }
+        '409':
+          description: Invalid request, unauthorized, missing thread, busy or agent off
+          content:
+            application/json:
+              schema: { type: object, additionalProperties: true }
+        '503':
+          description: Invalid request, unauthorized, missing thread, busy or agent off
+          content:
+            application/json:
+              schema: { type: object, additionalProperties: true }
+  /api/coach/agent/drafts:
+    get:
+      tags: [coach]
+      summary: Agent drafts
+      responses:
+        '200':
+          description: Agent response
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/AgentDraftList' }
+        '400':
+          description: Invalid request, unauthorized, missing thread, busy or agent off
+          content:
+            application/json:
+              schema: { type: object, additionalProperties: true }
+        '401':
+          description: Invalid request, unauthorized, missing thread, busy or agent off
+          content:
+            application/json:
+              schema: { type: object, additionalProperties: true }
+        '403':
+          description: Invalid request, unauthorized, missing thread, busy or agent off
+          content:
+            application/json:
+              schema: { type: object, additionalProperties: true }
+        '404':
+          description: Invalid request, unauthorized, missing thread, busy or agent off
+          content:
+            application/json:
+              schema: { type: object, additionalProperties: true }
+        '409':
+          description: Invalid request, unauthorized, missing thread, busy or agent off
+          content:
+            application/json:
+              schema: { type: object, additionalProperties: true }
+        '503':
+          description: Invalid request, unauthorized, missing thread, busy or agent off
+          content:
+            application/json:
+              schema: { type: object, additionalProperties: true }
   /api/health:
     get:
       tags: [meta]
@@ -3105,6 +3338,63 @@ components:
           example: { error: "that code is wrong, used or expired", code: "link-invalid" }
 
   schemas:
+
+    AgentAccepted:
+      type: object
+      required: [runId, threadId]
+      properties:
+        runId: { type: string }
+        threadId: { type: string }
+    AgentCancelled:
+      type: object
+      required: [ok]
+      properties:
+        ok: { type: boolean, enum: [true] }
+    AgentDraft:
+      type: object
+      required: [id, kind, summary, diff]
+      properties:
+        id: { type: string }
+        kind: { type: string, enum: [plan_create, plan_edit, constraints] }
+        summary: { type: string }
+        diff: {}
+        conflicts: { type: array, items: {} }
+        warnings: { type: array, items: {} }
+        created_at: { type: integer }
+    AgentDraftList:
+      type: array
+      items: { $ref: '#/components/schemas/AgentDraft' }
+    AgentThread:
+      type: object
+      required: [threadId, status, messages, lastRun]
+      properties:
+        threadId: { type: string }
+        status: { type: string, enum: [idle, running, awaiting_approval, cancelled, error] }
+        messages:
+          type: array
+          items:
+            type: object
+            required: [role, text]
+            properties:
+              role: { type: string, enum: [user, assistant] }
+              text: { type: string }
+        approval:
+          type: object
+          required: [drafts]
+          properties:
+            drafts: { $ref: '#/components/schemas/AgentDraftList' }
+        lastRun:
+          type: object
+          nullable: true
+          required: [id, status, model_calls, prompt_tokens, completion_tokens, reasoning_tokens, cost]
+          properties:
+            id: { type: string }
+            status: { type: string, enum: [idle, running, awaiting_approval, done, cancelled, error] }
+            model_calls: { type: integer }
+            prompt_tokens: { type: integer }
+            completion_tokens: { type: integer }
+            reasoning_tokens: { type: integer }
+            cost: { type: number }
     Error:
       type: object
       required: [error]
@@ -3766,7 +4056,7 @@ components:
           type: object
           description: A whole plan, from a `create` job (routines, week and any custom exercises).
           properties:
-            opengym_plan: { type: integer, const: 1 }
+            gymbuddy_plan: { type: integer, const: 1 }
             name: { type: string, maxLength: 40 }
             summary: { type: string }
             basedOn: { type: string }

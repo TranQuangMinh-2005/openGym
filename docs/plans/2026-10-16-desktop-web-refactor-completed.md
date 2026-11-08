@@ -1,4 +1,4 @@
-# openGym desktop workspace — implementation report
+# GymBuddy desktop workspace — implementation report
 
 Implemented the selected layout: training schedule and log remain the main workspace, with Gym Buddy in the right rail and a dedicated chat route. This report accompanies `2026-10-16-desktop-web-refactor.md`.
 

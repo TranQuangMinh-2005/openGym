@@ -1,55 +1,33 @@
-# openGym documentation
+# GymBuddy documentation
 
-Pick the part that matches what you're doing. If you just have a question, try the
-[FAQ](FAQ.md) first.
+## The Agent Coach (thesis)
 
-## Using the app
+| Document | Read it when |
+|---|---|
+| [Proposal](proposal/project-proposal.md) | You want the thesis scope and goals |
+| [Implementation plan](plans/2026-11-05-multi-agent-coach-implementation.md) | You want the agent design, decisions and known limits |
+| [Graph & runtime spec](plans/2026-11-06-t6-graph-runtime-spec.md) | You are working on the LangGraph runtime |
+| [Agent chat UI brief](plans/2026-11-07-agent-chat-ui-brief.md) | You are working on the Coach chat screen |
+| [Architecture](architecture/) | You want the ERD and pipeline diagrams |
+
+## Running it
 
 | Guide | Read it when |
 |---|---|
-| [FAQ](FAQ.md) | You have a quick question: iPhone, cost, where your data goes, AI, the exercise media |
-| [Phone app](MOBILE.md) | You want the Android APK or the iPhone options, or to connect the app to your own server |
-| [Importing data](DATA_IMPORTS.md) | You're coming from FitNotes, Strong, Hevy or Apple Health, or sharing a plan with someone |
-| [AI coach](AI_COACH.md) | Your instance has the coach switched on and you want to know what it sees and can change |
+| [Self-hosting](SELF_HOSTING.md) | You're setting up an instance: passkeys and HTTPS, users, backups, troubleshooting |
+| [Single user](SINGLE_USER.md) | You want a demo instance without sign-in |
+| [HTTPS at home](SELF_HOSTING_HTTPS.md) | You want valid certificates on your LAN |
+| [AI coach (legacy)](AI_COACH.md) | You use the single-call coach from the original app |
+| [MCP server](../mcp/README.md) | You want an AI client to read your training history |
 
-The [live demo](https://opengym.ch/demo/) is the real app with example data, nothing
-to install.
-
-## Hosting it
-
-| Guide | Read it when |
-|---|---|
-| [Self-hosting](SELF_HOSTING.md) | You're setting up an instance. Start here: running it, passkeys and HTTPS, users, backups, updates, troubleshooting |
-| [HTTPS at home](SELF_HOSTING_HTTPS.md) | You want valid certificates on your LAN without exposing the server to the internet |
-| [Kubernetes](SELF_HOSTING_KUBERNETES.md) | You run a cluster instead of Docker Compose |
-| [AI coach](AI_COACH.md) | You're deciding whether to turn the coach on, and with which provider |
-| [MCP server](../mcp/README.md) | You want Claude Desktop, Cursor or another AI client to read your training history |
-| [NixOS](NIX.md) | You run NixOS and want openGym native — flake packages and a NixOS module, no Docker |
-| [Security](../SECURITY.md) | You host it for other people, or want to report a vulnerability |
-
-All settings live in `.env`; [`.env.example`](../.env.example) explains each one, and the
-[README](../README.md#quick-start) has the full table.
+All settings live in `.env`; [`.env.example`](../.env.example) explains each one.
 
 ## Working on the code
 
 | Guide | Read it when |
 |---|---|
-| [Contributing](../CONTRIBUTING.md) | Before your first pull request: setup, guidelines, what CI checks |
-| [CLAUDE.md](../CLAUDE.md) | You want the architecture in one page (written for Claude Code, useful for people too) |
-| [HTTP API](API.md) | You're touching routes; the OpenAPI spec is the source of truth |
-| [Roadmap](../ROADMAP.md) | You want to know what's planned and where your idea fits |
-| [Changelog](../CHANGELOG.md) | You want to know what changed in a release |
-
-Design notes for specific features, kept next to the code they describe:
-
-| Note | Covers |
-|---|---|
-| [Set types](dev/SET_TYPES.md) | Drop sets and rest-pause: the set-row model and how totals are counted |
-| [Workout views](dev/LIST_VIEW.md) | The cards, list and compact layouts of the workout screen |
-| [Combine routines](dev/COMBINE_ROUTINES.md) | Spec for running more than one routine in a session |
-
-## Still stuck?
-
-Ask on the [Discord](https://discord.gg/e62jY6fwVb) or in
-[Discussions](https://github.com/DuarteSantos8/openGym/discussions). If something in these docs was
-wrong or missing, that's worth an issue too.
+| [CLAUDE.md](../CLAUDE.md) | You want the architecture in one page |
+| [HTTP API](API.md) | You're touching routes; [`api/openapi.yaml`](../api/openapi.yaml) is the source of truth |
+| [Importing data](DATA_IMPORTS.md) | You work on the FitNotes, Strong, Hevy or Apple Health importers |
+| [Phone app](MOBILE.md) | You build the Capacitor shells |
+| [Set types](dev/SET_TYPES.md), [Workout views](dev/LIST_VIEW.md), [Combine routines](dev/COMBINE_ROUTINES.md) | Design notes for specific features |

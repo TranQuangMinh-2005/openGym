@@ -197,35 +197,60 @@ code không quên và không bịa.
 
 ### 5.2 Các agent và vai trò
 
-| Agent | Làm gì | Giải quyết hạn chế nào của chatbot thông thường |
-|---|---|---|
-| Điều phối (Router) | Đọc tin nhắn và xác định người dùng muốn gì: tạo chương trình, hỏi kiến thức, điều chỉnh hay xem lại kết quả tập | Trả lời lệch ý người dùng |
-| Ghi nhớ điều kiện | Rút ra điều kiện mới từ tin nhắn (ví dụ "không có barbell", "tối đa 45 phút"), cập nhật danh sách điều kiện, hỏi lại khi thiếu hoặc mâu thuẫn | Quên điều đã nói qua nhiều lượt |
-| Giải thích kiến thức | Tra cứu kho tài liệu đã biên tập và thư viện bài tập, trả lời kèm trích dẫn | Bịa kiến thức, không dẫn nguồn |
-| Thiết kế chương trình | Tạo chương trình mới hoặc danh sách thay đổi dựa trên hồ sơ, điều kiện và lịch sử | |
-| Đọc nhật ký | Diễn giải các chỉ số do code tính từ nhật ký (1RM ước tính, mức gắng sức, xu hướng) | Đọc sai số liệu, tăng tạ máy móc |
-| Kiểm tra | Kiểm tra đề xuất có đúng cấu trúc, có vi phạm điều kiện nào không, trích dẫn có thật sự hỗ trợ nhận định không, có cần áp dụng quy tắc an toàn không | Đề xuất trông hợp lý nhưng sai yêu cầu |
+> Cập nhật 06/11/2026 theo bản đã cài đặt (`api/coach/agent/`, nhánh `feat/agent-coach`). Bảng sáu
+> agent của bản đề xuất đầu đã được gộp thành **một Orchestrator và ba agent chuyên trách**, cộng hai
+> **lớp kiểm tra bằng code** ở hai đầu luồng (Input Guard, Output Guard).
 
-Luồng xử lý một tin nhắn như sau:
+| Thành phần | Loại | Làm gì | Gộp từ |
+|---|---|---|---|
+| Orchestrator | LLM (gọi công cụ) | Đọc tin nhắn, chọn agent, nối nhiều agent trong một lượt, là **nơi duy nhất hỏi lại người dùng**, viết câu trả lời cuối | Điều phối |
+| RAG Agent | LLM + 4 công cụ | Tra thư viện bài tập và kho kiến thức, tự viết lại truy vấn, tự đánh giá đoạn nào liên quan, tối đa 2 vòng truy xuất, trả lời kèm trích dẫn | Giải thích kiến thức |
+| Program Agent | LLM + 6 công cụ | Tạo hoặc sửa chương trình từ một **ảnh chụp ngữ cảnh** đã kiểm tra (hồ sơ, điều kiện, thiết bị, lịch sử, chương trình hiện tại, tiến độ, danh sách bài phù hợp); mọi đề xuất qua `check_plan` rồi lưu thành **bản nháp** | Thiết kế chương trình |
+| Profile & Progress Agent | LLM + 4 công cụ | Rút điều kiện từ những gì người dùng nói rõ (ghi thành bản nháp chờ xác nhận) và đọc tiến độ chỉ bằng số do code tính | Ghi nhớ điều kiện + Đọc nhật ký |
+| Input Guard | Code + LLM chỉ được nâng mức | Phát hiện báo đau trước khi lập kế hoạch (§9 quy tắc 5) | Kiểm tra (phần an toàn) |
+| Output Guard | Code | Trích dẫn ⊆ đoạn đã truy xuất, không ngôn ngữ chẩn đoán, không bài thuộc vùng đau, không vi phạm điều kiện bắt buộc; lỗi thì sửa một lần rồi dùng câu trả lời an toàn | Kiểm tra |
+
+Kiểm tra cấu trúc và ràng buộc của chương trình (`check_plan`) nằm ngay trong công cụ đề xuất, nên
+không thể bị bỏ qua; nó dùng lại bộ kiểm tra `validate.js` sẵn có của openGym.
+
+Luồng xử lý một tin nhắn:
 
 ```
-Tin nhắn người dùng
-      │
-      ▼
- Điều phối ──► Ghi nhớ điều kiện ──► (thiếu hoặc mâu thuẫn → hỏi lại người dùng)
-                     │
-      ┌──────────────┼───────────────┐
-      ▼              ▼               ▼
- Giải thích     Thiết kế         Đọc nhật ký
- kiến thức      chương trình
-      │              │               │
-      └──────────────┼───────────────┘
-                     ▼
-                  Kiểm tra ──► (lỗi → trả lại agent đã tạo ra, tối đa 2 lần)
-                     │
-                     ▼
-     Đề xuất hoặc câu trả lời → người dùng chấp nhận → áp dụng và lưu phiên bản
+Tin nhắn ─► Input Guard ── red flag ──► Phản hồi an toàn + nháp "tránh vùng" ─┐
+                │ không / caution                                              │
+                ▼                                                              │
+          Orchestrator ◄──────────────┐                                        │
+           │ giao việc                │ kết quả (AgentResult)                  │
+           ├─► RAG Agent ─────────────┤                                        │
+           ├─► Program Agent ─────────┤  (trước đó: dựng ảnh chụp ngữ cảnh)    │
+           ├─► Profile & Progress ────┘                                        │
+           ├─► hỏi lại người dùng (chỉ Orchestrator)                           │
+           └─► kết thúc ─► Output Guard ── vi phạm ─► sửa 1 lần / câu an toàn  │
+                                │ đạt                                          │
+                                ▼                                              ▼
+                         Có bản nháp? ── có ─► DỪNG chờ duyệt (interrupt) ─► Duyệt / Từ chối
+                                │ không                                         │
+                                ▼                                               ▼
+                             Trả lời                          Ghi state (commit) / giữ nguyên
 ```
+
+**Ai hỏi lại người dùng.** Các agent chuyên trách không hỏi trực tiếp; khi thiếu dữ kiện chúng trả về
+danh sách `clarifications` (trường, lý do, câu hỏi gợi ý). Orchestrator gộp theo trường, bỏ câu đã hỏi
+trong lượt, hỏi tối đa hai câu, và không hỏi lại điều đã có trong hồ sơ. Dữ kiện người dùng vừa nói
+trong hội thoại được Orchestrator trích ra (`facts`) và chuyển cho Program Agent; chúng chỉ được lưu
+vào hồ sơ khi người dùng xác nhận qua Profile & Progress Agent.
+
+**Duyệt đề xuất.** Mọi thay đổi (chương trình hoặc điều kiện) được lưu thành bản nháp trong
+`agent.db`; đồ thị dừng bằng `interrupt()` và chỉ tiếp tục khi người dùng gửi quyết định. Duyệt thì
+nút `commit` ghi vào `state-<uid>.json` qua cùng cơ chế ghi có điều kiện (`_rev`) với `PUT /api/data`;
+từ chối thì state không đổi. Bản nháp lập trên một chương trình đã bị sửa ở nơi khác được đánh dấu
+`stale` và không được ghi. Với bản sửa, người dùng có thể duyệt từng thay đổi.
+
+**Giới hạn vòng lặp (không phải ngân sách).** Trong giai đoạn phát triển không có trần số lần gọi
+model. Thay vào đó: giới hạn đệ quy của đồ thị (`AGENT_RECURSION_LIMIT`, mặc định 40), phát hiện lặp
+(cùng công cụ, cùng tham số ba lần), tối đa ba lần giao việc cho cùng một agent trong một lượt, không
+giao lại cho agent đã báo bế tắc, timeout từng lần gọi và cả lượt, và nút hủy.
+`AGENT_MAX_MODEL_CALLS` để trống nghĩa là không giới hạn; có thể đặt khi triển khai thật.
 
 ### 5.3 Danh sách điều kiện
 
@@ -343,8 +368,9 @@ là gây đau vai. Trước khi đến tay Hùng, đề xuất đã được bư
 
 ## 9. Quy tắc xử lý
 
-Trợ lý tuân theo năm quy tắc, được áp dụng bằng code ở bước kiểm tra chứ không chỉ nhắc trong lời
-dặn mô hình.
+Trợ lý tuân theo năm quy tắc. Bảng dưới ghi rõ quy tắc nào được **code** bảo đảm và quy tắc nào dựa
+vào **LLM** (được kiểm tra bằng bộ tình huống). Hợp đồng an toàn đầy đủ:
+`api/coach/agent/safety/contract.md`.
 
 1. **Giữ đúng yêu cầu còn hiệu lực:** thông tin mới chỉ thay thế thông tin cũ trong phạm vi người
    dùng yêu cầu. Ví dụ, đổi "45 phút" thành "60 phút vào thứ Bảy" chỉ thay đổi các buổi thứ Bảy.
@@ -361,21 +387,53 @@ dặn mô hình.
    khuyên gặp chuyên gia [S5]. Với mỏi hoặc đau cơ thông thường sau buổi tập, hệ thống có thể đề xuất
    giảm tải và nói rõ đây không phải chẩn đoán. Khi chưa rõ, hệ thống hỏi lại trước.
 
+| Quy tắc | Bảo đảm bằng code (ở đâu) | Phần do LLM |
+|---|---|---|
+| 1 | Điều kiện có phạm vi (ví dụ thời lượng chỉ cho thứ Bảy) trong `ledger.js`; `check_plan` kiểm thời lượng theo từng ngày | Program Agent chỉ sửa phần được yêu cầu |
+| 2 | `program_context` liệt kê trường bắt buộc còn thiếu; điều kiện rút từ chat chỉ là **bản nháp** cho đến khi người dùng duyệt | Orchestrator gộp và hỏi |
+| 3 | `get_progress_metrics` tính 1RM (cùng công thức với app, có parity test), chững tạ, khối lượng; giá trị thiếu là "không có", không phải 0 | Diễn giải số liệu |
+| 4 | Output Guard chặn ngôn ngữ chẩn đoán | Cách diễn đạt |
+| 5 | Input Guard: bộ từ vựng tiếng Việt/Anh (mức sàn) + bộ phân loại LLM **chỉ được nâng mức**; lỗi hay quá giờ thì xử lý thận trọng (fail closed). Red flag ⇒ phản hồi an toàn cố định, không lập kế hoạch trong lượt đó, ghi nháp "tránh vùng" (có hiệu lực ngay ở trạng thái chờ). `check_plan` và Output Guard chặn bài thuộc vùng đau và việc tăng tải vùng đó | Nhận diện cách nói tự do ngoài từ vựng |
+
+Đo trên bộ 30 câu giữ riêng (`eval/safety-heldout.json`, chưa từng đưa cho agent cài đặt): chỉ bộ từ
+vựng đạt recall red flag 0,625; kết hợp LLM (DeepSeek V4.1 Flash) đạt 0,938 (15/16), không có trường hợp
+đánh giá quá mức. Vì vậy không tuyên bố phát hiện 100% với ngôn ngữ tự do; mục tiêu 100% ở §12 áp dụng
+cho bộ tình huống đã định nghĩa.
+
 ## 10. Công nghệ và triển khai
 
 Sản phẩm là một ứng dụng web gồm phần giao diện (ghi nhật ký, xem chương trình, chatbox, danh sách
 điều kiện, thư viện bài tập) và phần máy chủ (lưu dữ liệu từng người dùng, chạy các agent, gọi mô
 hình AI). Ứng dụng được đóng gói bằng Docker để chạy được trên máy cá nhân hoặc máy chủ.
 
-Mô hình sử dụng là GPT-4o mini qua OpenAI API, vì chi phí thấp và hỗ trợ trả kết quả theo cấu trúc
-JSON cố định, giúp các agent trao đổi dữ liệu với nhau ổn định. Các agent được viết bằng code thông
-thường, gọi mô hình khi cần, không phụ thuộc vào framework agent bên ngoài, để dễ kiểm soát và dễ
-tái hiện kết quả. Truy xuất kho kiến thức dùng thuật toán tìm kiếm theo từ khóa BM25 kết hợp tra
-cứu theo các trường của bài tập; chỉ chuyển sang tìm kiếm theo ngữ nghĩa (embedding) nếu đo được BM25
-không đủ tốt.
+> Cập nhật 06/11/2026: các agent dùng **LangGraph.js** (đồ thị trạng thái, `interrupt()` để chờ duyệt,
+> checkpoint) và **LangChain.js** (`ChatOpenAI` cho mọi endpoint tương thích OpenAI), cài dưới dạng
+> phụ thuộc tùy chọn: image Docker mặc định không có chúng, image `coach` thì có.
 
-Mỗi tác vụ được giới hạn tối đa sáu lần gọi mô hình và hai vòng sửa lỗi, để chi phí và thời gian
-phản hồi không vượt kiểm soát. Hai con số này sẽ được điều chỉnh sau thử nghiệm sơ bộ.
+- **Mô hình:** cấu hình qua biến môi trường (`AGENT_LLM_BASE_URL`, `AGENT_LLM_MODEL`). Bản phát triển
+  dùng **DeepSeek V4.1 Flash qua OpenCode Go**. Nhà cung cấp này không hỗ trợ `response_format`, nên
+  đầu ra có cấu trúc đi qua lời gọi công cụ bắt buộc (function calling).
+- **Truy xuất:** BM25 (SQLite FTS5 có sẵn trong Node) trên kho kiến thức và thư viện 5.632 bài; mọi văn
+  bản được chuẩn hóa bỏ dấu (kể cả đ → d). Kho kiến thức hiện là **40 đoạn mẫu (placeholder)**, cần thay
+  bằng kho đã biên tập trước khi đánh giá chính thức.
+- **Lưu trữ (mỗi dữ liệu một nguồn sự thật):**
+
+| Dữ liệu | Lưu ở |
+|---|---|
+| Tài khoản, passkey | `db.json` (giữ nguyên) |
+| Chương trình, nhật ký, hồ sơ, **điều kiện đã duyệt** (`coach.ledger`) | `state-<uid>.json` (đồng bộ về app, dùng offline) |
+| Bản nháp chờ duyệt, lịch sử phiên bản chương trình, checkpoint hội thoại, trace và token | `agent.db` (SQLite, `node:sqlite` có sẵn, không cần module native) |
+| Kho kiến thức, chi tiết bài tập | file JSON trong repo, nạp vào FTS5 khi khởi động |
+
+  Trace chỉ có một nơi lưu là `agent.db` (`agent_runs`, `agent_events`); không bật OpenTelemetry hay
+  LangSmith, dữ liệu không rời máy.
+- **Theo dõi chi phí:** mỗi lần gọi model ghi số token (gồm token suy luận) và chi phí do nhà cung cấp
+  báo vào `agent_runs`. Ví dụ đo được: câu hỏi kiến thức 6 lần gọi, ~19 nghìn token, 32 giây; tạo
+  chương trình 8 lần gọi, ~68 nghìn token, 86 giây.
+- **Giới hạn:** không có trần số lần gọi trong giai đoạn phát triển; dùng các giới hạn vòng lặp ở §5.2.
+  Trần cho môi trường thật đặt bằng `AGENT_MAX_MODEL_CALLS` sau khi có số liệu thử nghiệm. Thay cho
+  "hai vòng sửa lỗi": Output Guard sửa đúng một lần; Program Agent sửa theo lỗi của `check_plan` cho
+  đến khi hợp lệ hoặc bị phát hiện lặp.
 
 ## 11. Yêu cầu chất lượng
 

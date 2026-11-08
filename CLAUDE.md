@@ -4,10 +4,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-openGym is a self-hosted gym & body-weight tracker PWA. Two containers (`api` + `web`) plus a
+GymBuddy is a self-hosted gym & body-weight tracker PWA. Two containers (`api` + `web`) plus a
 `./data` folder the user owns — no third-party account, no telemetry. Passkey (WebAuthn) login,
 installable as a home-screen app, optional Capacitor shells for standalone Android/iOS builds.
-License: AGPL-3.0-or-later.
+License: AGPL-3.0-or-later. A fork of openGym (credit and media licence in NOTICE.md — keep them).
 
 ## Project layout
 
@@ -21,9 +21,8 @@ mcp/       optional MCP server — read-only stdio bridge exposing a user's work
            balance to LLM clients (Claude Desktop, Cursor…). Not part of the Docker build; only
            runs when an LLM client spawns it.
 media/     exercise img/gif, gitignored, fetched at runtime by the `media` compose service.
-website/   static project site (plain HTML/CSS/JS), deployed separately.
-kubernetes/ example manifests (docs/SELF_HOSTING_KUBERNETES.md).
-docs/      guides indexed in docs/README.md (FAQ, SELF_HOSTING*, MOBILE, AI_COACH, DATA_IMPORTS, API);
+eval/      agent evaluation: safety held-out set, live end-to-end runner.
+docs/      guides indexed in docs/README.md (SELF_HOSTING*, MOBILE, AI_COACH, DATA_IMPORTS, API);
            docs/dev/ holds feature design notes (SET_TYPES: drop sets/rest-pause, LIST_VIEW, COMBINE_ROUTINES).
 ```
 
@@ -55,13 +54,10 @@ cd frontend && npm run build:mobile   # + cap sync, points media at the CDN data
 There is no linter/formatter configured (no ESLint/Prettier config in the repo) and no
 TypeScript — match the existing style by hand.
 
-GitHub (`github.com/DuarteSantos8/openGym`) is the home of the project; `.github/workflows/mirror.yml`
-pushes `main` and `v*` tags to the GitLab mirror. Pull requests are gated by
-`.github/workflows/test.yml` on Node 22 — the same version as `web/Dockerfile` / `api/Dockerfile`
-(`node:22-alpine`): the frontend, api and MCP suites, the locale checks, and building and booting
-both api image targets. GitLab CI on the mirror (`.gitlab-ci.yml`) builds the release artifacts:
-the signed Android APK, the multi-arch images and the SBOMs. Never push or merge on GitLab
-directly; the mirror is fast-forward only.
+`.github/workflows/test.yml` runs on Node 22 — the same version as `web/Dockerfile` /
+`api/Dockerfile` (`node:22-alpine`): the frontend, api and MCP suites, the locale checks, and
+building and booting both api image targets. `.github/workflows/catalogue.yml` validates catalogue
+changes.
 
 ## Architecture
 
@@ -80,9 +76,9 @@ directly; the mirror is fast-forward only.
   - `finish-workout.js` — reduces a completed session back into state (weights advance, PRs, etc).
   - `recovery.js` / `recovery-view.js` — fatigue/muscle-recovery model.
   - `workout-model.js`, `supersetFlow.js` — in-session workout state machine, incl. supersets.
-  - `exercises.js` / `exercises-data.js` — the exercise library (1,324 built-ins + user-defined).
+  - `exercises.js` / `exercises-data.js` — the exercise library (5,632 built-ins + user-defined; `catalogue/exercises/` holds 6,554 files because 922 are female-variant media entries).
   - `api.js` — the only place that talks to the backend (`fetch` wrapper, session cookie flows).
-  - CONTRIBUTING.md is explicit: **anything that decides what you lift next, or reads a logged
+  - The rule: **anything that decides what you lift next, or reads a logged
     session back, is a pure helper here with a unit test beside it** — not verifiable by
     clicking, and the progression engine has already had two bugs that only a test caught.
 - **`views/`** — one file per screen (Home, Workout, Plan, Library, Stats, History, Settings,
@@ -116,6 +112,40 @@ defines the exposed MCP tools (zod-validated schemas), `labels.js` maps internal
 human-readable labels, `index.js` wires it together. See `mcp/README.md` for the client-config
 side (Claude Desktop / Cursor).
 
+### Thesis scope flag (`frontend/src/lib/scope.js`)
+
+This fork is a thesis about the Agent Coach. By default the frontend runs in focus mode (`FOCUS`):
+out-of-scope features are hidden, not deleted — the legacy single-call Coach UI (intake/setup/admin AI),
+Admin, gym check-in, GymBot preview, muscle explorer, structural balance, progress photos, body
+measurements, and the Settings pages Reminders, AI Coach and Data & backup. Hidden routes redirect to
+`/home`. Build with `VITE_FULL_APP=1` to restore the whole GymBuddy app. The test config sets
+`VITE_FULL_APP=1`, so the existing suite keeps testing the full app; focus-mode tests mock `scope.js`
+(`views/scope.focus.test.jsx`, `views/Home.focus.test.jsx`, `lib/scope.test.js`).
+
+### Agent Coach (`api/coach/agent/`, optional)
+
+A second, conversational Coach built on LangGraph.js, beside (not replacing) the single-call Coach in
+`api/coach/`. Off unless `AGENT_ENABLED=1` and the optional deps are installed (Docker `coach`
+target); `server.js` imports only `coach/agent/routes.js` and loads the runtime lazily. Design and
+decisions: `docs/plans/2026-11-05-multi-agent-coach-implementation.md` and
+`docs/plans/2026-11-06-t6-graph-runtime-spec.md`.
+
+- `graph.js` — input_guard → orchestrator ⇄ rag / program / profile_progress agents → output_guard →
+  approval (`interrupt()`) → commit. Only the orchestrator asks the user questions.
+- `safety/` — the only rule-based layer: red-flag lexicon (floor) + LLM classifier that may only
+  escalate, output guard (citations ⊆ retrieved, no diagnosis, pain regions, hard constraints).
+  Contract: `safety/contract.md`. Held-out evaluation: `eval/run-safety-heldout.mjs`.
+- `tools/` — plain `{name, description, schema, run}` objects wrapped in `tools/index.js`.
+  `check_plan` reuses `core/validate.js`; `propose_plan`/`update_constraints` only write drafts.
+- `runtime.js` — run/resume/cancel, recursion limit, loop guards, usage and tracing.
+- Persistence: drafts, plan versions, checkpoints (`checkpointer.js`, on `node:sqlite`) and traces in
+  `DATA_DIR/agent.db`; approved changes are written to `state-<uid>.json` only by the commit node via
+  `state-store.js` `commitState` (same CAS/stamping rules as `PUT /api/data`).
+- Server-side apply (`core/apply.js`) is a hand-ported copy of the app's apply functions, pinned by
+  `frontend/src/lib/coach-apply-parity.test.js`.
+- Tests use the scripted fake model in `api/test/helpers/fake-chat-model.mjs`; live end-to-end runs:
+  `node eval/live-e2e.mjs <dataDir> "<message>" [threadId] [approve|reject]` with `.env` loaded.
+
 ### Passkeys and self-hosting constraints
 
 WebAuthn passkeys are bound to an exact hostname (`RP_ID`) and require HTTPS (localhost excepted)
@@ -133,7 +163,7 @@ output), `api`, `web` (multi-stage build of `frontend/` served by nginx, which a
 `web/nginx.conf.template` is rendered from env vars at container start (`NGINX_PORT`, `BACKEND`,
 `PORT`), so host/port remapping works against prebuilt images without a rebuild.
 
-## Guidelines from CONTRIBUTING.md worth knowing before changing code
+## Guidelines worth knowing before changing code
 
 - **Dependency-light is a hard constraint, not a preference.** Frontend: React + Router + Zustand
   and nothing else. `api/`: two dependencies total. New dependencies are a hard sell either side.

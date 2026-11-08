@@ -1,11 +1,9 @@
 # The exercise catalogue
 
-Every exercise openGym knows lives here, one file each, in plain JSON. The app is built from these
-files, so a fix merged here is in the next release for everyone.
+Every exercise GymBuddy knows lives here, one file each, in plain JSON. The app is built from these
+files. Most entries come from openGym's community-edited catalogue (see NOTICE.md).
 
 - **Browse the list:** [browse/](browse/README.md), one page per body part, each exercise with a link to its picture.
-- **Report something without editing:** open an
-  [exercise issue](https://github.com/DuarteSantos8/openGym/issues/new?template=exercise.yml).
 
 ## What's where
 

@@ -1,4 +1,4 @@
-package ch.duartesantos.opengym;
+package app.gymbuddy;
 
 import android.app.Activity;
 import android.os.Build;

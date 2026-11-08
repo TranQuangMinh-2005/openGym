@@ -1,7 +1,12 @@
 # Third-party notices
 
+GymBuddy is a modified, non-commercial version of **openGym**
+(<https://github.com/DuarteSantos8/openGym>), modified in 2026 to add the multi-agent Agent Coach
+and a thesis focus mode, and released under the same licence.
+
 openGym — Copyright (C) 2026 Duarte Santos.
-openGym's own code is licensed under the **GNU AGPL v3.0** (see [LICENSE](LICENSE)).
+openGym's own code, and GymBuddy's changes to it, are licensed under the **GNU AGPL v3.0**
+(see [LICENSE](LICENSE)).
 
 ## App store exception
 

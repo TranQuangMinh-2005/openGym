@@ -1,5 +1,5 @@
 // Adapted from RedLine HomeMatchMascot (original: HomeMatch P-187).
-// Gym silhouette, equipment and copy belong to this openGym adaptation.
+// Gym silhouette, equipment and copy belong to this GymBuddy adaptation.
 import { useId, useRef } from 'react'
 import './GymMascot.css'
 import gsap from 'gsap'

@@ -481,7 +481,7 @@ Ruled beyond this effort's destination — each returns only as its own later ef
 
 ## 11. Test checklist
 
-Per CONTRIBUTING, anything that decides what you lift or reads a session back is a **pure
+As a project rule, anything that decides what you lift or reads a session back is a **pure
 helper in `lib/` with a unit test beside it**. New/changed helpers and their coverage:
 
 ### `lib/session-merge.test.js` (new)

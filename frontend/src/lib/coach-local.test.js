@@ -131,13 +131,13 @@ describe('the Coach on a phone with its own key', () => {
   })
 
   it('mints one 16-character pseudonym and keeps it; the payload carries it and never a name', async () => {
-    await local.localReview({ ...state(), name: 'Duarte' })
+    await local.localReview({ ...state(), name: 'Alex' })
     await settle()
     const first = (await loadCoachDevice()).handle
     expect(first).toHaveLength(16)
     const payload = wire.calls[0].body.messages[1].content
     expect(payload).toContain(`"profile":"${first}"`)
-    expect(payload).not.toContain('Duarte')
+    expect(payload).not.toContain('Alex')
     local._resetLocal(); await saveCoachDevice({ pending: null })
     await local.localReview(state()); await settle()
     expect((await loadCoachDevice()).handle).toBe(first)
@@ -170,7 +170,7 @@ describe('the Coach on a phone with its own key', () => {
   })
 
   it('creates a plan from an intake, and refines it against the previous bundle', async () => {
-    const plan = { coach_contract: 1, opengym_plan: 1, name: 'P', summary: 's', basedOn: 'b', week: { 1: 'r1', 3: 'r2', 5: 'r1' },
+    const plan = { coach_contract: 1, gymbuddy_plan: 1, name: 'P', summary: 's', basedOn: 'b', week: { 1: 'r1', 3: 'r2', 5: 'r1' },
       routines: [
         { id: 'r1', name: 'A', emoji: '💪', why: 'w', ex: [{ id: EX, sets: 3, mode: 'reps', reps: 8, why: 'w' }, { id: EX2, sets: 3, mode: 'reps', reps: 10, why: 'w' }, { id: EXERCISES[2].id, sets: 3, mode: 'reps', reps: 10, why: 'w' }] },
         { id: 'r2', name: 'B', emoji: '🏋️', why: 'w', ex: [{ id: EXERCISES[3].id, sets: 3, mode: 'reps', reps: 8, why: 'w' }, { id: EXERCISES[4].id, sets: 3, mode: 'reps', reps: 10, why: 'w' }, { id: EXERCISES[5].id, sets: 3, mode: 'reps', reps: 10, why: 'w' }] }
