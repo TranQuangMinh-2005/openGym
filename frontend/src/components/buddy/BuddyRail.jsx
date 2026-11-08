@@ -1,3 +1,4 @@
+import { FOCUS } from '../../lib/scope.js'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useStore } from '../../store/useStore.js'
@@ -67,7 +68,7 @@ export default function BuddyRail({ pathname, onClose, shown = true }) {
         {last && <button onClick={() => go('/history')}><Icon name="history" /><span>{t('Last workout')}<small>{last.name} · {last.d}</small></span><Icon name="chevronRight" /></button>}
       </div>
     </>}
-    {(!pathname.startsWith('/coach') || !available) && <button className="btn primary buddy-chat-button" onClick={!available && user?.admin ? () => go('/admin') : openCoach}><Icon name="sparkles" />{available ? t('Chat with Buddy') : user?.admin ? t('Connect AI') : t('Meet your coach')}<Icon name="chevronRight" /></button>}
+    {(!pathname.startsWith('/coach') || !available) && <button className="btn primary buddy-chat-button" onClick={!FOCUS && !available && user?.admin ? () => go('/admin') : openCoach}><Icon name="sparkles" />{available ? t('Chat with Buddy') : !FOCUS && user?.admin ? t('Connect AI') : t('Meet your coach')}<Icon name="chevronRight" /></button>}
     <div className="buddy-rail-footer" title={t('Your plan changes only when you approve.')}><Icon name={available ? 'shield' : 'cloud'} />{available ? t('Your plan changes only when you approve.') : t('AI not connected')}</div>
   </aside>
 }

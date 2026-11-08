@@ -1,3 +1,4 @@
+import { FOCUS, HIDDEN_ROUTES } from './lib/scope.js'
 import { useEffect, useLayoutEffect, useRef } from 'react'
 import { HashRouter, Routes, Route, Navigate, useNavigate, useLocation, useNavigationType } from 'react-router-dom'
 import { useStore } from './store/useStore.js'
@@ -207,31 +208,32 @@ function Shell() {
         <ErrorBoundary>
           {!authed ? <Login /> : needsMobileOnboarding ? <MobileOnboarding /> : (
             <Routes>
+              {FOCUS && HIDDEN_ROUTES.map(path => <Route key={path} path={path + "/*"} element={<Navigate to="/home" replace />} />)}
               <Route path="/home" element={<Home />} />
-              <Route path="/gym-bot" element={<GymBotPreview />} />
+              <Route path="/gym-bot" element={FOCUS ? <Navigate to="/home" replace /> : <GymBotPreview />} />
               {/* Gym check-in — switched off in Settings, the route falls through to the
                   catch-all redirect below. */}
-              {S.checkIn !== false && <Route path="/checkin" element={<CheckIn />} />}
+              {(FOCUS || S.checkIn !== false) && <Route path="/checkin" element={FOCUS ? <Navigate to="/home" replace /> : <CheckIn />} />}
               <Route path="/plan" element={<Plan />} />
               <Route path="/plan/r/:id" element={<RoutineEdit />} />
               <Route path="/workout" element={<Workout />} />
               <Route path="/stats" element={<Stats />} />
               <Route path="/history" element={<History />} />
               <Route path="/library" element={<Library />} />
-              <Route path="/muscles" element={<Muscles />} />
-              <Route path="/structural-balance" element={<StructuralBalance />} />
-              <Route path="/progress-photos" element={<ProgressPhotos />} />
-              <Route path="/measurements" element={<Measurements />} />
+              <Route path="/muscles" element={FOCUS ? <Navigate to="/home" replace /> : <Muscles />} />
+              <Route path="/structural-balance" element={FOCUS ? <Navigate to="/home" replace /> : <StructuralBalance />} />
+              <Route path="/progress-photos" element={FOCUS ? <Navigate to="/home" replace /> : <ProgressPhotos />} />
+              <Route path="/measurements" element={FOCUS ? <Navigate to="/home" replace /> : <Measurements />} />
               <Route path="/settings" element={<SettingsRoute />} />
               <Route path="/settings/:page" element={<SettingsRoute />} />
               {/* The Coach screens gate themselves on the instance config; the routes exist
                   unconditionally so a deep link from a notification lands somewhere sane
                   rather than on the catch-all. */}
               <Route path="/coach" element={<CoachEntry />} />
-              <Route path="/coach/intake" element={<CoachIntake />} />
+              <Route path="/coach/intake" element={FOCUS ? <Navigate to="/home" replace /> : <CoachIntake />} />
               <Route path="/coach/proposal" element={<Navigate to="/coach" replace />} />
-              <Route path="/coach/setup" element={<CoachSetup />} />
-              <Route path="/admin" element={user?.admin ? <Admin /> : <Navigate to="/home" replace />} />
+              <Route path="/coach/setup" element={FOCUS ? <Navigate to="/home" replace /> : <CoachSetup />} />
+              <Route path="/admin" element={FOCUS ? <Navigate to="/home" replace /> : user?.admin ? <Admin /> : <Navigate to="/home" replace />} />
               <Route path="*" element={<Navigate to="/home" replace />} />
             </Routes>
           )}

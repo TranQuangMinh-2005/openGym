@@ -1,3 +1,4 @@
+import { FOCUS } from '../lib/scope.js'
 import BuddyHint from '../components/buddy/BuddyHint.jsx'
 import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -658,6 +659,7 @@ export default function Stats() {
 
     {(workouts.length > 0 || Object.keys(loadOfWeeklyPlan(S)).length > 0) && <MuscleBalance S={S} />}
     {S.routines.length > 0 && <WeeklyPlanVolume S={S} />}
+    {!FOCUS && <>
     {workouts.length > 0 && <div className="card row between" style={{ alignItems: 'center', gap: 12 }}>
       <div style={{ minWidth: 0 }}><h2 style={{ margin: 0 }}>{t('Structural balance')}</h2>
         <div className="muted small" style={{ marginTop: 4 }}>{t('See which lift is holding back the rest.')}</div></div>
@@ -675,6 +677,7 @@ export default function Stats() {
           : t('Waist, arms, body fat and anything else you measure, each with its own curve.')}</div></div>
       <Button size="sm" variant="tinted" trailingIcon="chevronRight" style={{ flexShrink: 0 }} onClick={() => nav('/measurements')}>{t('Open')}</Button>
     </div>
+    </>}
     {(hasEffort(S) || hasEstimableEffort(S)) && <EffortCard S={S} />}
 
     <div className="cols">

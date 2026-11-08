@@ -1,3 +1,4 @@
+import { FOCUS } from '../lib/scope.js'
 import { useNavigate } from 'react-router-dom'
 import { useStore } from '../store/useStore.js'
 import { coachAvailable } from '../lib/coach.js'
@@ -29,7 +30,7 @@ export default function GymBuddyCard({ active = false, done = false }) {
         <button className="gym-buddy-action" onClick={() => nav(available ? '/coach' : '/plan')}>
           {available ? 'Trò chuyện với Buddy' : 'Mở lịch tập'}<Icon name="chevronRight" />
         </button>
-        {!available && user?.admin && <button className="gym-buddy-connect" onClick={() => nav('/admin')}>Kết nối AI</button>}
+        {!FOCUS && !available && user?.admin && <button className="gym-buddy-connect" onClick={() => nav('/admin')}>Kết nối AI</button>}
       </div>
       {!available && <div className="gym-buddy-status">AI chưa được kết nối</div>}
     </div>

@@ -1,3 +1,4 @@
+import { FOCUS } from '../lib/scope.js'
 import { APP_NAME } from '../lib/brand.js'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -176,7 +177,7 @@ export default function Home() {
     <div className="home-overview-stack">
     {/* Jump to the gym check-in cards (QR membership codes). Shown here as a quick tap on
         arrival at the gym; folds away per user via the "Gym check-in" switch in Settings. */}
-    {S.checkIn !== false && (
+    {!FOCUS && S.checkIn !== false && (
       <div className="card tappable home-checkin" style={{ cursor: 'pointer' }} {...tappable(() => nav('/checkin'))}>
         <div className="row between">
           <div className="row" style={{ gap: 9 }}>

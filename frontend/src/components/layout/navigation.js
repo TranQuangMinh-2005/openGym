@@ -1,3 +1,4 @@
+import { FOCUS } from '../../lib/scope.js'
 import { t } from '../../lib/i18n.js'
 
 // One route map for the workspace, breadcrumbs and responsive navigation.
@@ -10,7 +11,7 @@ export const navigation = () => [
   { path: '/coach', label: 'GymBuddy', icon: 'sparkles' },
 ]
 export const secondaryNavigation = () => [
-  { path: '/measurements', label: t('Body measurements'), icon: 'scale' },
+  ...(!FOCUS ? [{ path: '/measurements', label: t('Body measurements'), icon: 'scale' }] : []),
   { path: '/settings', label: t('Settings'), icon: 'gear' },
 ]
 export function activePath(pathname) {
