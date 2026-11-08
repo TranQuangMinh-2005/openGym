@@ -4,11 +4,11 @@
 
 | Document | Read it when |
 |---|---|
-| [Proposal](proposal/project-proposal.md) | You want the thesis scope and goals |
-| [Implementation plan](plans/2026-11-05-multi-agent-coach-implementation.md) | You want the agent design, decisions and known limits |
-| [Graph & runtime spec](plans/2026-11-06-t6-graph-runtime-spec.md) | You are working on the LangGraph runtime |
-| [Agent chat UI brief](plans/2026-11-07-agent-chat-ui-brief.md) | You are working on the Coach chat screen |
-| [Architecture](architecture/) | You want the ERD and pipeline diagrams |
+| [Proposal](thesis/proposal/project-proposal.md) | You want the thesis scope and goals |
+| [Implementation plan](thesis/plans/2026-11-05-multi-agent-coach-implementation.md) | You want the agent design, decisions and known limits |
+| [Graph & runtime spec](thesis/plans/2026-11-06-t6-graph-runtime-spec.md) | You are working on the LangGraph runtime |
+| [Agent chat UI brief](thesis/plans/2026-11-07-agent-chat-ui-brief.md) | You are working on the Coach chat screen |
+| [Architecture](thesis/architecture/) | You want the ERD and pipeline diagrams |
 
 ## Running it
 

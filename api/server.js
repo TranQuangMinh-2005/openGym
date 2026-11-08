@@ -15,8 +15,8 @@ import {
 import webpush from 'web-push';
 import * as coachConfig from './coach/config.js';
 import * as coachJobs from './coach/jobs.js';
-import { agentRoutes } from './coach/agent/routes.js';
-import { loadAgentConfig } from './coach/agent/config.js';
+import { agentRoutes } from './agent/routes.js';
+import { loadAgentConfig } from './agent/config.js';
 import { coachRoutes } from './coach/routes.js';
 import { startCadence } from './coach/cadence.js';
 import { startWarmup } from './coach/warmup.js';
@@ -482,7 +482,7 @@ const stateCache = new Map(); // uid -> { mtimeMs, size, hitAt, S }
 // Load lazily: the default image has no optional agent dependencies.
 let agentRuntimePromise;
 function getAgentRuntime() {
-  return agentRuntimePromise ||= import('./coach/agent/runtime.js').then(({ createAgentRuntime }) => createAgentRuntime({
+  return agentRuntimePromise ||= import('./agent/runtime.js').then(({ createAgentRuntime }) => createAgentRuntime({
     cfg: loadAgentConfig(), commitState: stateStore.commitState,
     readState: uid => { const state = readStateStrict(uid); if (state === UNREADABLE) throw new Error('Unreadable state'); return state ?? {}; }
   }));

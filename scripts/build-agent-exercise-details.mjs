@@ -8,7 +8,7 @@ const rows = EXERCISES.map(({ id }) => {
   return { id, n:e.name, bp:e.bodyPart, tg:e.target, eq:e.equipment, sm:e.secondaryMuscles, cat:e.category, d:e.description, st:e.instructions };
 }).sort((a,b) => a.id.localeCompare(b.id, 'en'));
 const body = '[\n' + rows.map(e => JSON.stringify(e)).join(',\n') + '\n]\n';
-const file = new URL('api/coach/agent/kb/exercise-details.json', root);
+const file = new URL('api/agent/kb/exercise-details.json', root);
 if (process.argv.includes('--check')) {
   let current; try { current = readFileSync(file,'utf8'); } catch {}
   if (current !== body) { console.error('Exercise details stale; run node scripts/build-agent-exercise-details.mjs'); process.exit(1); }

@@ -15,15 +15,17 @@ License: AGPL-3.0-or-later. A fork of openGym (credit and media licence in NOTIC
 frontend/  React 19 + Vite app (src/views, src/components, src/store, src/lib). Builds to static files.
            android/ + ios/ are the Capacitor shells for the standalone mobile app (docs/MOBILE.md).
 api/       backend — server.js (Node, no framework), deps: @simplewebauthn/server, web-push.
-           coach/ is the optional AI coach; openapi.yaml documents every route.
+           agent/ is the multi-agent Coach (the thesis), coach/ the single-call coach it reuses;
+           openapi.yaml documents every route. Tests: test/*.test.js, agent tests in test/agent/.
 web/       multi-stage Dockerfile (builds frontend → nginx) + nginx.conf.template (serves app, proxies /api).
 mcp/       optional MCP server — read-only stdio bridge exposing a user's workouts/1RM/muscle
            balance to LLM clients (Claude Desktop, Cursor…). Not part of the Docker build; only
            runs when an LLM client spawns it.
 media/     exercise img/gif, gitignored, fetched at runtime by the `media` compose service.
-eval/      agent evaluation: safety held-out set, live end-to-end runner.
+eval/      agent evaluation for the thesis: datasets/, scenarios/, runners/ (results/ is gitignored).
 docs/      guides indexed in docs/README.md (SELF_HOSTING*, MOBILE, AI_COACH, DATA_IMPORTS, API);
            docs/dev/ holds feature design notes (SET_TYPES: drop sets/rest-pause, LIST_VIEW, COMBINE_ROUTINES).
+           docs/thesis/ holds the thesis material: proposal, prd, plans, architecture, previews.
 ```
 
 ## Commands
@@ -122,19 +124,19 @@ measurements, and the Settings pages Reminders, AI Coach and Data & backup. Hidd
 `VITE_FULL_APP=1`, so the existing suite keeps testing the full app; focus-mode tests mock `scope.js`
 (`views/scope.focus.test.jsx`, `views/Home.focus.test.jsx`, `lib/scope.test.js`).
 
-### Agent Coach (`api/coach/agent/`, optional)
+### Agent Coach (`api/agent/`, optional)
 
 A second, conversational Coach built on LangGraph.js, beside (not replacing) the single-call Coach in
 `api/coach/`. Off unless `AGENT_ENABLED=1` and the optional deps are installed (Docker `coach`
-target); `server.js` imports only `coach/agent/routes.js` and loads the runtime lazily. Design and
-decisions: `docs/plans/2026-11-05-multi-agent-coach-implementation.md` and
-`docs/plans/2026-11-06-t6-graph-runtime-spec.md`.
+target); `server.js` imports only `agent/routes.js` and loads the runtime lazily. Design and
+decisions: `docs/thesis/plans/2026-11-05-multi-agent-coach-implementation.md` and
+`docs/thesis/plans/2026-11-06-t6-graph-runtime-spec.md`.
 
 - `graph.js` — input_guard → orchestrator ⇄ rag / program / profile_progress agents → output_guard →
   approval (`interrupt()`) → commit. Only the orchestrator asks the user questions.
 - `safety/` — the only rule-based layer: red-flag lexicon (floor) + LLM classifier that may only
   escalate, output guard (citations ⊆ retrieved, no diagnosis, pain regions, hard constraints).
-  Contract: `safety/contract.md`. Held-out evaluation: `eval/run-safety-heldout.mjs`.
+  Contract: `safety/contract.md`. Held-out evaluation: `eval/runners/safety-heldout.mjs`.
 - `tools/` — plain `{name, description, schema, run}` objects wrapped in `tools/index.js`.
   `check_plan` reuses `core/validate.js`; `propose_plan`/`update_constraints` only write drafts.
 - `runtime.js` — run/resume/cancel, recursion limit, loop guards, usage and tracing.
@@ -144,7 +146,7 @@ decisions: `docs/plans/2026-11-05-multi-agent-coach-implementation.md` and
 - Server-side apply (`core/apply.js`) is a hand-ported copy of the app's apply functions, pinned by
   `frontend/src/lib/coach-apply-parity.test.js`.
 - Tests use the scripted fake model in `api/test/helpers/fake-chat-model.mjs`; live end-to-end runs:
-  `node eval/live-e2e.mjs <dataDir> "<message>" [threadId] [approve|reject]` with `.env` loaded.
+  `node eval/runners/live-e2e.mjs <dataDir> "<message>" [threadId] [approve|reject]` with `.env` loaded.
 
 ### Passkeys and self-hosting constraints
 

@@ -4,7 +4,7 @@ A self-hosted gym and body-weight tracker with a **multi-agent AI Coach**: a con
 plans and edits your training program, answers training questions with citations, reviews your
 progress, and never changes your data without your approval.
 
-GymBuddy is a thesis project. Its contribution is the Agent Coach (`api/coach/agent/`); the tracker
+GymBuddy is a thesis project. Its contribution is the Agent Coach (`api/agent/`); the tracker
 it runs on is a fork of [openGym](https://github.com/DuarteSantos8/openGym) (AGPL-3.0, see
 [NOTICE.md](NOTICE.md)).
 
@@ -19,7 +19,7 @@ it runs on is a fork of [openGym](https://github.com/DuarteSantos8/openGym) (AGP
 - **Grounded numbers:** plan facts (days, sets and sessions per muscle, minutes) are computed by code,
   and the specialist's proposal is shown verbatim.
 
-Design and decisions: [docs/plans/2026-11-05-multi-agent-coach-implementation.md](docs/plans/2026-11-05-multi-agent-coach-implementation.md).
+Design and decisions: [docs/thesis/plans/2026-11-05-multi-agent-coach-implementation.md](docs/thesis/plans/2026-11-05-multi-agent-coach-implementation.md).
 
 ## Quick start
 
@@ -48,12 +48,14 @@ Build with `VITE_FULL_APP=1` to show the whole app (see `frontend/src/lib/scope.
 
 | Folder | What it is |
 |---|---|
-| `api/` | Node backend (`server.js`, no framework); `coach/agent/` is the Agent Coach |
+| `api/agent/` | The Agent Coach (thesis): LangGraph graph, agents, tools, prompts, safety guards |
+| `api/` | Node backend (`server.js`, no framework); `coach/` is the single-call coach the agent reuses |
 | `frontend/` | React 19 + Vite app; `src/views/AgentChat.jsx` is the Coach chat |
 | `web/` | nginx image that serves the app and proxies `/api` |
 | `mcp/` | Optional read-only MCP server over a user's training data |
-| `eval/` | Safety held-out set and live end-to-end runner for the agent |
-| `docs/` | Guides, architecture, proposal and design plans |
+| `eval/` | Thesis evaluation: `datasets/`, `scenarios/`, `runners/` |
+| `docs/thesis/` | Proposal, PRD, plans, architecture diagrams, UI previews |
+| `docs/` | Running and development guides |
 
 [CLAUDE.md](CLAUDE.md) has the architecture in one page.
 
